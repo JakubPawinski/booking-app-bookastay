@@ -1,5 +1,5 @@
-import User from '../models/user.model';
-import { findUserByEmail } from '../services/user.service';
+import User from '../models/user.model.js';
+import { findUserByEmail } from '../services/user.service.js';
 
 const login = async (req, res) => {
 	const { email, password } = req.body;
@@ -33,4 +33,4 @@ const register = async (req, res) => {
 	}
 };
 
-export { login };
+export { login, register };

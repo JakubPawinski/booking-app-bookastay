@@ -15,8 +15,8 @@ const reservationSchema = new mongoose.Schema({
 	endDate: { type: Date, required: true },
 	totalPrice: { type: Number, required: true },
 	isConfirmed: { type: Boolean, default: false },
+	peopleAmount: { type: Number, required: true },
 });
 
 const Reservation = mongoose.model('Reservation', reservationSchema);
 export default Reservation;
-

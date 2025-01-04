@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/user.route.js';
+import authRoutes from './routes/auth.route.js';
+import houseRoutes from './routes/house.route.js';
 
 const app = express();
 const port = 3000;
@@ -9,9 +11,9 @@ app.get('/', (req, res) => {
 	res.send('Reservation app API');
 });
 
-app.use('/api/auth', userRoutes);
-app.use('/api/user', userRoutes);
-// app.use()
+app.use('/api/auth', authRoutes);
+app.use('/api/usera', userRoutes);
+app.use('/api/houses', houseRoutes);
 
 mongoose
 	.connect(
