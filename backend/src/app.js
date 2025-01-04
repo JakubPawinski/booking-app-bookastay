@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import userRoutes from './routes/user.route.js';
 
 const app = express();
 const port = 3000;
@@ -8,9 +9,13 @@ app.get('/', (req, res) => {
 	res.send('Reservation app API');
 });
 
+app.use('/api/auth', userRoutes);
+app.use('/api/user', userRoutes);
+// app.use()
+
 mongoose
 	.connect(
-		"mongodb+srv://admin:nkC1lUJLZc7eHYa6@database.vmj7q.mongodb.net/DataBaseretryWrites=true&w=majority&appName=DataBase"
+		'mongodb+srv://admin:nkC1lUJLZc7eHYa6@database.vmj7q.mongodb.net/DataBaseretryWrites=true&w=majority&appName=DataBase'
 	)
 	.then(() => {
 		console.log('Connected to MongoDB');

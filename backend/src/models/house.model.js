@@ -1,7 +1,11 @@
 import mongoose from 'mongoose';
 
 const houseSchema = new mongoose.Schema({
-    ownerID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+	ownerID: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
+		required: true,
+	},
 	name: {
 		type: String,
 		required: true,
@@ -19,22 +23,22 @@ const houseSchema = new mongoose.Schema({
 		city: { type: String, required: true },
 		country: { type: String, required: true },
 	},
-    pricePerNight: {
-        low: { type: Number },
-        medium: { type: Number },
-        high: { type: Number }
-    },
-    availability: [
-        {
-            startDate: { type: Date, required: true },
-            endDate: { type: Date, required: true },
-            isAvailable: { type: Boolean, default: true }
-        }
-    ],
+	pricePerNight: {
+		low: { type: Number },
+		medium: { type: Number },
+		high: { type: Number },
+	},
+	availability: [
+		{
+			startDate: { type: Date, required: true },
+			endDate: { type: Date, required: true },
+			isAvailable: { type: Boolean, default: true },
+		},
+	],
 });
 
-//images 
+//images
 //reviews
 
 const House = mongoose.model('House', houseSchema);
-module.exports = House;
+export default House;
