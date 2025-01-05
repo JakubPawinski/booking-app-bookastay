@@ -1,4 +1,4 @@
-
+import './styles/profilePage.scss';
 
 export const metadata = {
 	title: 'Profile',

@@ -11,14 +11,22 @@ export default function Navigation() {
 	const [isLogged, setIsLogged] = useState(false);
 	const [userRole, setUserRole] = useState(null);
 
-	useEffect(() => {
+	const checkAuth = () => {
 		const token = Cookies.get('token');
 		if (token) {
 			setIsLogged(true);
 
 			const decodedData = jwtDecode(token);
 			setUserRole(decodedData.role);
+		} else {
+			setIsLogged(false);
+			setUserRole(null);
 		}
+	};
+
+	useEffect(() => {
+		checkAuth();
+		window.addEventListener('reload', checkAuth);
 	}, []);
 
 	return (

@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import ButtonAuth from '../components/ButtonAuth/ButtonAuth';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function AuthPage() {
+	const router = useRouter();
 	const [selectedButton, setSelectedButton] = useState('login');
 
 	const [email, setEmail] = useState('');
@@ -31,6 +33,9 @@ export default function AuthPage() {
 					{ withCredentials: true }
 				);
 				console.log(response);
+
+				window.dispatchEvent(new Event('reload'));
+				router.replace('/');
 			} catch (error) {
 				alert('Invalid email or password');
 				// console.error(error);
