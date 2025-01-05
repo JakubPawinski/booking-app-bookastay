@@ -5,13 +5,15 @@ import authRoutes from './routes/auth.route.js';
 import houseRoutes from './routes/house.route.js';
 import reservationRoutes from './routes/reservation.route.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.get('/', (req, res) => {
 	res.send('Reservation app API');
@@ -28,7 +30,7 @@ mongoose
 	)
 	.then(() => {
 		console.log('Connected to MongoDB');
-		app.listen(3000, () => {
+		app.listen(port, () => {
 			console.log(`Server app is running on port ${port}`);
 		});
 	})

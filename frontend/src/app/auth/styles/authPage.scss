@@ -1,0 +1,47 @@
+.auth-page {
+	margin: auto;
+	// background-color: rgb(255, 46, 46);
+	border-radius: 30px;
+	width: 40%;
+	.auth-page {
+		height: 100px;
+		margin-top: 100px;
+		width: 100%;
+		// border: 3px solid rgb(255, 46, 46);
+
+		.buttons {
+			display: flex;
+			justify-content: space-around;
+			// background-color: transparent;
+			border: transparent;
+			// margin-top: 20px;
+			// padding: 10px;
+			width: 100%;
+			button {
+				color: rgb(86, 86, 86);
+				background-color: white;
+				border: none;
+				// border-radius: 30px;
+				// padding: 10px;
+				font-size: 2rem;
+				cursor: pointer;
+				width: 30%;
+				font-weight: bold;
+				margin-bottom: 15px;
+			}
+
+			.active {
+				// background-color: black;
+				color: black;
+				border-bottom: 2px dashed red;
+			}
+		}
+		.form {
+			form {
+				// border: 3px solid rgb(255, 46, 46);
+				display: flex;
+				flex-direction: column;
+			}
+		}
+	}
+}
