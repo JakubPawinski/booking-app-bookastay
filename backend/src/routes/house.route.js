@@ -7,16 +7,18 @@ import {
 	deleteHouse,
 } from '../controllers/house.controller.js';
 
+import { ownerVerification } from '../middlewares/userVerification.middleware.js';
+
 const router = express.Router();
 
 router.get('/', getHouses);
 
 router.get('/:id', getHouseById);
 
-router.put('/:id', updateHouse);
+router.put('/:id', ownerVerification, updateHouse);
 
-router.post('/', addHouse);
+router.post('/', ownerVerification, addHouse);
 
-router.delete('/:id', deleteHouse);
+router.delete('/:id', ownerVerification, deleteHouse);
 
 export default router;

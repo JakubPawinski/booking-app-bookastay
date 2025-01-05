@@ -4,12 +4,14 @@ import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import houseRoutes from './routes/house.route.js';
 import reservationRoutes from './routes/reservation.route.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
 	res.send('Reservation app API');
