@@ -3,14 +3,17 @@ import {
 	getUsers,
 	getUserById,
 	getUserByEmail,
+	updateUser,
 } from '../controllers/user.controller.js';
 
 const router = express.Router();
 
 router.get('/', getUsers);
 
-router.get('/:id', getUserById);
+router.get('/id/:id', getUserById);
 
-router.get('/:email', getUserByEmail);
+router.get('/email/:email', getUserByEmail);
+
+router.put('/:id', updateUser);
 
 export default router;

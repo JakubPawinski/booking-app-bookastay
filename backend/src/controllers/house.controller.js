@@ -26,17 +26,26 @@ const getHouseById = async (req, res) => {
 };
 
 const updateHouse = async (req, res) => {
+	console.log('update house');
+
 	try {
 		const { id } = req.params;
+		console.log(id);
 
 		const house = await House.findByIdAndUpdate(id, req.body);
+		console.log(house);
+		
 		if (!house) {
 			return res.status(404).json({ message: 'House not found' });
 		}
 
-		const updatedHouse = House.findById(id);
+		const updatedHouse = await House.findById(id);
+		console.log(updatedHouse);
+		
 		res.status(200).json(updatedHouse);
 	} catch (error) {
+		console.log('error');
+		
 		res.status(404).json({ message: error.message });
 	}
 };
