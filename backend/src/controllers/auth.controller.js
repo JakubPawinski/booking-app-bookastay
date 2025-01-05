@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import User from '../models/user.model.js';
-import { findUserByEmail } from '../services/user.service.js';
+import { findUserByEmail } from '../utils/user.util.js';
 
 const saltRounds = 10;
 

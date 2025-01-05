@@ -1,5 +1,5 @@
 import User from '../models/user.model.js';
-import { findUserByEmail, findUserById } from '../services/user.service.js';
+import { findUserByEmail, findUserById } from '../utils/user.util.js';
 
 const getUsers = async (req, res) => {
 	try {

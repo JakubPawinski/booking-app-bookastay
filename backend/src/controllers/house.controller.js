@@ -28,11 +28,12 @@ const getHouseById = async (req, res) => {
 const updateHouse = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const house = await House.findByIdAndUpdate(id, req.body);
 
+		const house = await House.findByIdAndUpdate(id, req.body);
 		if (!house) {
 			return res.status(404).json({ message: 'House not found' });
 		}
+
 		const updatedHouse = House.findById(id);
 		res.status(200).json(updatedHouse);
 	} catch (error) {
