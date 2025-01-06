@@ -2,5 +2,5 @@ import Image from 'next/image';
 import styles from './page.module.css';
 
 export default function HomePage() {
-	return <div>Reservation</div>;
+	return <div className='home-page'>Reservation</div>;
 }

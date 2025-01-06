@@ -38,6 +38,7 @@ export default function ProfilePage() {
 				<div className='profile-info'>
 					<div className='profile-avatar'></div>
 					<div className='profile-name'>{`${profileData.firstName} ${profileData.lastName}`}</div>
+					<div className='profile-role'>{profileData.role}</div>
 				</div>
 
 				<button className='logout-button' onClick={handleLogout}>

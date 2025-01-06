@@ -11,12 +11,18 @@ export default function AuthPage() {
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [phone, setPhone] = useState('');
+	const [role, setRole] = useState('');
 
 	const handleSelect = (selectedButton) => {
 		setSelectedButton(selectedButton);
 	};
 
 	const handleSubmit = async (e, eventType) => {
+		console.log('submitting');
+
 		e.preventDefault();
 		if (eventType === 'login') {
 			console.log(
@@ -39,6 +45,29 @@ export default function AuthPage() {
 			} catch (error) {
 				alert('Invalid email or password');
 				// console.error(error);
+			}
+		}
+		if (eventType === 'register') {
+			console.log(
+				`Trying to register with email: ${email}, password: ${password}, firstName: ${firstName}, lastName: ${lastName}, phone: ${phone}, role: ${role}`
+			);
+
+			try {
+				const response = await axios.post(
+					'http://localhost:4000/api/auth/register',
+					{
+						email: email,
+						password: password,
+						firstName: firstName,
+						lastName: lastName,
+						phone: phone,
+						role: role,
+					}
+				);
+				console.log(response);
+				setSelectedButton('login');
+			} catch (error) {
+				alert('User already exists');
 			}
 		}
 	};
@@ -80,7 +109,62 @@ export default function AuthPage() {
 						<button type='submit'>Log in</button>
 					</form>
 				) : (
-					<div>register</div>
+					<form onSubmit={(e) => handleSubmit(e, selectedButton)}>
+						<label htmlFor='firstName'>First Name</label>
+						<input
+							type='text'
+							id='firstName'
+							name='firstName'
+							onChange={(e) => {
+								setFirstName(e.target.value);
+							}}
+						></input>
+						<label htmlFor='lastName'>Last Name</label>
+						<input
+							type='text'
+							id='lastName'
+							name='lastName'
+							onChange={(e) => {
+								setLastName(e.target.value);
+							}}
+						></input>
+						<label htmlFor='email'>Email</label>
+						<input
+							type='email'
+							id='email'
+							name='email'
+							onChange={(e) => {
+								setEmail(e.target.value);
+							}}
+						/>
+						<label htmlFor='password'>Password</label>
+						<input
+							type='password'
+							id='password'
+							name='password'
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+						<label htmlFor='phone'>Phone</label>
+						<input
+							type='text'
+							id='phone'
+							name='phone'
+							onChange={(e) => setPhone(e.target.value)}
+						></input>
+						<label htmlFor='role'>Role</label>
+						<select
+							id='role'
+							name='role'
+							onChange={(e) => {
+								console.log(e.target.value);
+								setRole(e.target.value);
+							}}
+						>
+							<option value='user'>User</option>
+							<option value='owner'>Owner</option>
+						</select>
+						<button type='submit'>Register</button>
+					</form>
 				)}
 			</div>
 		</div>

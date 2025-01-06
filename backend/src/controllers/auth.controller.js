@@ -55,7 +55,6 @@ const login = async (req, res) => {
 };
 const register = async (req, res) => {
 	console.log('register endpoint');
-	console.log(req.body);
 
 	try {
 		const { firstName, lastName, email, password, phone, role } = req.body;
