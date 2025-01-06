@@ -1,0 +1,33 @@
+.accomodation-card {
+	// border: 2px solid red;
+	list-style: none;
+	.accomodation-image {
+		width: 100%;
+		height: auto;
+		border-radius: 20px;
+		aspect-ratio: 1;
+		background-color: lightskyblue;
+		margin: 0px;
+	}
+	.accomodation-content {
+		margin-left: 5px;
+		> h2 {
+			font-size: 1.3rem;
+			margin: 0px;
+			font-weight: bold;
+		}
+		> p {
+			margin: 0px;
+			margin-top: 4px;
+			font-size: 1rem;
+		}
+		> .price {
+			font-weight: bold;
+		}
+	}
+}
+
+.accomodation-card:hover {
+	transform: scale(1.02);
+	transition: transform 0.5s;
+}
