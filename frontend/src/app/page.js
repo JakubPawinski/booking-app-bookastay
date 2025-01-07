@@ -5,6 +5,7 @@ import styles from './page.module.css';
 import Accomodation from './components/Accomodation/Accomodation';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Loading from '@/app/components/Loading/Loading.jsx';
 
 export default function HomePage() {
 	const [accomodations, setAccomodations] = useState([]);
@@ -27,11 +28,9 @@ export default function HomePage() {
 	}, []);
 	return (
 		<div className='home-page'>
-			<div className='filters'>Filters</div>
-
 			<div className='home-page-content'>
 				{isLoading ? (
-					<div>Loading...</div>
+					<Loading />
 				) : (
 					<ul>
 						{accomodations.map((accomodation) => (

@@ -72,7 +72,7 @@ export default function AuthPage() {
 		}
 	};
 	return (
-		<div className='auth-page'>
+		<div className='auth-page-page'>
 			<div className='buttons'>
 				<ButtonAuth
 					isSelected={selectedButton === 'login'}
@@ -90,7 +90,6 @@ export default function AuthPage() {
 			<div className='form'>
 				{selectedButton === 'login' ? (
 					<form onSubmit={(e) => handleSubmit(e, selectedButton)}>
-						<label htmlFor='email'>Email</label>
 						<input
 							type='email'
 							id='email'
@@ -98,19 +97,19 @@ export default function AuthPage() {
 							onChange={(e) => {
 								setEmail(e.target.value);
 							}}
+							placeholder='Email'
 						/>
-						<label htmlFor='password'>Password</label>
 						<input
 							type='password'
 							id='password'
 							name='password'
 							onChange={(e) => setPassword(e.target.value)}
+							placeholder='Password'
 						/>
 						<button type='submit'>Log in</button>
 					</form>
 				) : (
 					<form onSubmit={(e) => handleSubmit(e, selectedButton)}>
-						<label htmlFor='firstName'>First Name</label>
 						<input
 							type='text'
 							id='firstName'
@@ -118,8 +117,8 @@ export default function AuthPage() {
 							onChange={(e) => {
 								setFirstName(e.target.value);
 							}}
+							placeholder='First Name'
 						></input>
-						<label htmlFor='lastName'>Last Name</label>
 						<input
 							type='text'
 							id='lastName'
@@ -127,8 +126,8 @@ export default function AuthPage() {
 							onChange={(e) => {
 								setLastName(e.target.value);
 							}}
+							placeholder='Last Name'
 						></input>
-						<label htmlFor='email'>Email</label>
 						<input
 							type='email'
 							id='email'
@@ -136,22 +135,22 @@ export default function AuthPage() {
 							onChange={(e) => {
 								setEmail(e.target.value);
 							}}
+							placeholder='Email'
 						/>
-						<label htmlFor='password'>Password</label>
 						<input
 							type='password'
 							id='password'
 							name='password'
 							onChange={(e) => setPassword(e.target.value)}
+							placeholder='Password'
 						/>
-						<label htmlFor='phone'>Phone</label>
 						<input
 							type='text'
 							id='phone'
 							name='phone'
 							onChange={(e) => setPhone(e.target.value)}
+							placeholder='Phone'
 						></input>
-						<label htmlFor='role'>Role</label>
 						<select
 							id='role'
 							name='role'

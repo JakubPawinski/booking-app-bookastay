@@ -1,0 +1,36 @@
+.accomodation-layout {
+	width: 70%;
+	margin: auto;
+
+	.accomodation-page {
+		margin-top: 20px;
+		h1 {
+			font-size: 2.5rem;
+			font-weight: normal;
+			margin: 5px;
+			margin-left: 25px;
+		}
+		.accomodation-page-images {
+			// background-color: red;
+			// border: 1px solid black;
+			width: 100%;
+			height: 550px;
+			display: grid;
+			grid-template-columns: 2fr 1fr 1fr;
+			grid-template-rows: 1fr 1fr;
+			gap: 10px;
+			border-radius: 30px;
+			overflow: hidden;
+
+			.accomodation-page-main-image {
+				grid-column: 1 / 2;
+				grid-row: 1 / 3;
+			}
+
+			.image {
+				overflow: hidden;
+				background-color: lightblue;
+			}
+		}
+	}
+}

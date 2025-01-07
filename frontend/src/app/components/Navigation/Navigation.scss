@@ -7,7 +7,78 @@
 		margin: auto;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		width: 70%;
+
+		.navbar-logo {
+			a {
+				color: rgb(252, 69, 69);
+				font-weight: bold;
+				letter-spacing: 1px;
+			}
+			a:hover {
+				color: rgb(255, 32, 32);
+			}
+		}
+
+		.navbar-right {
+			.navbar-auth {
+				display: flex;
+				gap: 15px;
+				align-items: center;
+				justify-content: center;
+				border: 1px solid gray;
+				padding: 5px;
+				border-radius: 30px;
+				width: 110%;
+				position: relative;
+
+				.icon {
+					font-size: 1.3rem;
+					color: gray;
+				}
+
+				.bars {
+					font-size: 1.2rem;
+				}
+
+				.profile {
+					border: 1px solid grey;
+					border-radius: 50%;
+					padding: 5px;
+					color: white;
+					background-color: gray;
+				}
+			}
+			.navbar-auth:hover {
+				box-shadow: 0px 5px 10px lightgray;
+			}
+
+			.profile-menu {
+				padding-top: 5px;
+				padding-bottom: 5px;
+				border-radius: 10px;
+				background-color: white;
+				// border: 1px solid lightgray;
+				box-shadow: 0px 5px 10px lightgray;
+				position: absolute;
+				bottom: -220px;
+				right: 5px;
+				width: 100px;
+				height: 200px;
+				display: flex;
+				flex-direction: column;
+				gap: 3px;
+				.profile-menu-option {
+					font-size: 1.1rem;
+					width: 100%;
+					text-align: center;
+				}
+				.profile-menu-option:hover {
+					background-color: rgb(234, 234, 234);
+				}
+			}
+		}
 	}
 	a {
 		color: black;

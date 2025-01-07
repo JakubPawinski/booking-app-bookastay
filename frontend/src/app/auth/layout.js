@@ -5,5 +5,5 @@ export const metadata = {
 };
 
 export default function AuthLayout({ children }) {
-	return <div className='auth-page'>{children}</div>;
+	return <div className='auth-page-layout'>{children}</div>;
 }
