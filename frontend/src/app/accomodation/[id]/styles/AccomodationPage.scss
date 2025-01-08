@@ -37,6 +37,84 @@
 			display: grid;
 			grid-template-columns: 3fr 1fr;
 			margin-top: 30px;
+
+			.accomodation-page-reservation {
+				border: 1px solid lightgray;
+				box-shadow: 0 0 10px 0 lightgray;
+				border-radius: 10px;
+				padding: 15px;
+
+				h3 {
+					font-size: 1.5rem;
+					font-weight: normal;
+					margin: 0px;
+
+					display: flex;
+					gap: 10px;
+					align-items: center;
+
+					p {
+						margin: 0px;
+					}
+
+					p:nth-child(1) {
+						font-weight: bold;
+						// font-size: ;
+					}
+					p:nth-child(2) {
+						font-size: 1.2rem;
+					}
+				}
+
+				form {
+					margin-top: 20px;
+					div {
+						border: 1px solid lightgray;
+						border-radius: 10px;
+						display: grid;
+						grid-template-columns: 1fr 1fr;
+						overflow: hidden;
+
+						input {
+							border: none;
+							padding: 5px;
+							overflow: hidden;
+							border-bottom: 1px solid lightgray;
+							font-size: 1rem;
+						}
+						input:nth-child(1) {
+							border-right: 1px solid lightgray;
+						}
+						label {
+							padding: 5px;
+							text-align: center;
+						}
+						select {
+							background-color: white;
+							border: none;
+							border-left: 1px solid lightgray;
+							text-align: center;
+						}
+					}
+
+					button {
+						width: 100%;
+						margin-top: 10px;
+						font-size: 1.2rem;
+						border-radius: 10px;
+						background-color: #fc4545;
+						border: none;
+						color: white;
+					}
+					button:hover {
+						background-color: #fc1c1c;
+					}
+				}
+				.accomodation-page-reservation-price {
+					display: flex;
+					justify-content: space-between;
+				}
+			}
 		}
 	}
 }

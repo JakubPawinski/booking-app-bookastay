@@ -45,7 +45,12 @@ export default function Navigation() {
 				</div>
 
 				<div className='navbar-right'>
-					<div className='navbar-auth' onClick={() => setShowMenu(!showMenu)}>
+					<div
+						className='navbar-auth'
+						onClick={() => {
+							setShowMenu(!showMenu);
+						}}
+					>
 						<FontAwesomeIcon className='icon bars' icon={faBars} />
 						<FontAwesomeIcon className='icon profile' icon={faUserSolid} />
 						{showMenu && <ProfileMenu isLogged={isLogged} />}

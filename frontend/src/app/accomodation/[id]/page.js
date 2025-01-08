@@ -53,19 +53,29 @@ export default function AccomodationPage({ params }) {
 					</div>
 				</div>
 				<div className='accomodation-page-reservation'>
+					<h3>
+						<p>{}450zł</p>
+						<p>night</p>
+					</h3>
 					<form className='accomodation-page-reservation-form'>
-						<input type='date' />
-						<input type='date' />
-						<label>Guests</label>
-						<select>
-							{new Array(accomodation.capacity).fill(0).map((el, index) => (
-								<option key={index} value={index + 1}>
-									{index + 1}
-								</option>
-							))}
-						</select>
+						<div>
+							<input type='date' id='startDate' name='startDate' />
+							<input type='date' id='endDate' name='endDate' />
+							<label>Guests</label>
+							<select id='peopleAmount' name='peopleAmount'>
+								{new Array(accomodation.capacity).fill(0).map((el, index) => (
+									<option key={index} value={index + 1}>
+										{index + 1}
+									</option>
+								))}
+							</select>
+						</div>
 						<button type='submit'>Reserve</button>
 					</form>
+					<div className='accomodation-page-reservation-price'>
+						<p>Total</p>
+						<p>4500zł</p>
+					</div>
 				</div>
 			</div>
 		</div>

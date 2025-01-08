@@ -43,8 +43,8 @@ export default function AuthPage() {
 				window.dispatchEvent(new Event('reload'));
 				router.replace('/');
 			} catch (error) {
-				alert('Invalid email or password');
-				// console.error(error);
+				// alert('Invalid email or password');
+				console.error(error);
 			}
 		}
 		if (eventType === 'register') {
@@ -67,7 +67,7 @@ export default function AuthPage() {
 				console.log(response);
 				setSelectedButton('login');
 			} catch (error) {
-				alert('User already exists');
+				console.log(error);
 			}
 		}
 	};
