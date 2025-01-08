@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import LogoutButton from '../LogoutButton/LogoutButton';
 
 export default function ProfileMenu({ isLogged }) {
 	return (
@@ -18,6 +19,7 @@ export default function ProfileMenu({ isLogged }) {
 					Profile
 				</Link>
 			)}
+			{isLogged && <LogoutButton />}
 		</div>
 	);
 }

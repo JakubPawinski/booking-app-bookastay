@@ -2,10 +2,10 @@
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import LogoutButton from '../components/LogoutButton/LogoutButton';
 
 export default function ProfilePage() {
-	const router = useRouter();
+	
 	const [profileData, setProfileData] = useState(null);
 
 	useEffect(() => {
@@ -26,12 +26,6 @@ export default function ProfilePage() {
 		return <div>Loading...</div>;
 	}
 
-	const handleLogout = () => {
-		Cookies.remove('token');
-		window.dispatchEvent(new Event('reload'));
-		router.push('/');
-	};
-
 	return (
 		<div className='profile-page-inner'>
 			<div className='profile-menu'>
@@ -40,10 +34,7 @@ export default function ProfilePage() {
 					<div className='profile-name'>{`${profileData.firstName} ${profileData.lastName}`}</div>
 					<div className='profile-role'>{profileData.role}</div>
 				</div>
-
-				<button className='logout-button' onClick={handleLogout}>
-					Log out
-				</button>
+				<LogoutButton />
 			</div>
 			<div className='content'></div>
 		</div>

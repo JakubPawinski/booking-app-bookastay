@@ -10,6 +10,7 @@
 			margin: 5px;
 			margin-left: 25px;
 		}
+
 		.accomodation-page-images {
 			// background-color: red;
 			// border: 1px solid black;
@@ -31,6 +32,11 @@
 				overflow: hidden;
 				background-color: lightblue;
 			}
+		}
+		.accomodation-page-details {
+			display: grid;
+			grid-template-columns: 3fr 1fr;
+			margin-top: 30px;
 		}
 	}
 }

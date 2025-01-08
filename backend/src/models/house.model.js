@@ -31,6 +31,10 @@ const houseSchema = new mongoose.Schema({
 			isAvailable: { type: Boolean, default: true },
 		},
 	],
+	capacity: {
+		type: Number,
+		required: true,
+	},
 });
 
 //images
