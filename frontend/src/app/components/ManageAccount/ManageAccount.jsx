@@ -6,6 +6,7 @@ import './ManageAccount.scss';
 import UpdateForm from '../UpdateForm/UpdateForm';
 import ChangePassword from '../ChangePasswordForm/ChangePasswordForm.jsx';
 
+
 export default function ManageAccount() {
 	const [profileData, setProfileData] = useState({
 		firstName: '',
@@ -26,7 +27,8 @@ export default function ManageAccount() {
 				console.log(decodedData.id);
 
 				const data = await axios.get(
-					`http://localhost:4000/api/users/id/${decodedData.id}`
+					`http://localhost:4000/api/users/id/${decodedData.id}`,
+					{ withCredentials: true }
 				);
 
 				setProfileData({
@@ -36,6 +38,7 @@ export default function ManageAccount() {
 					role: data.data.role || '',
 					phone: data.data.phone || '',
 					password: data.data.password || '',
+					id: data.data._id,
 				});
 			}
 		};
@@ -69,16 +72,7 @@ export default function ManageAccount() {
 		},
 	};
 
-	// const handleChange = (e) => {
-	// 	console.log(e.target);
-
-	// 	const { name, value } = e.target;
-	// 	setUpdateData((prevData) => ({
-	// 		...prevData,
-	// 		[name]: value,
-	// 	}));
-	// };
-	const handleSubmit = async (e) => {};
+	const deleteAccount = async () => {};
 
 	return (
 		<div className='profile-page-manage-account'>
@@ -94,6 +88,7 @@ export default function ManageAccount() {
 						type={defaultValues.firstName.type}
 						defaultValue={defaultValues.firstName.defaultValue}
 						label={defaultValues.firstName.label}
+						profileData={profileData}
 					/>
 				</div>
 				<div className='personal-details-last-name section'>
@@ -103,6 +98,7 @@ export default function ManageAccount() {
 						type={defaultValues.lastName.type}
 						defaultValue={defaultValues.lastName.defaultValue}
 						label={defaultValues.lastName.label}
+						profileData={profileData}
 					/>
 				</div>
 				<div className='personal-details-email section'>
@@ -112,6 +108,7 @@ export default function ManageAccount() {
 						type={defaultValues.email.type}
 						defaultValue={profileData.email}
 						label={defaultValues.email.label}
+						profileData={profileData}
 					/>
 				</div>
 				<div className='personal-details-phone section'>
@@ -121,6 +118,7 @@ export default function ManageAccount() {
 						type={defaultValues.phone.type}
 						defaultValue={defaultValues.phone.defaultValue}
 						label={defaultValues.phone.label}
+						profileData={profileData}
 					/>
 				</div>
 			</div>
@@ -143,7 +141,7 @@ export default function ManageAccount() {
 							Permanently delete your account
 						</div>
 
-						<button>Delete account</button>
+						<button onClick={deleteAccount}>Delete account</button>
 					</div>
 				</div>
 			</div>

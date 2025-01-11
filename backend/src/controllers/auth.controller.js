@@ -10,20 +10,20 @@ const saltRounds = 10;
 
 const login = async (req, res) => {
 	const { email, password } = req.body;
-	console.log('login endpoint');
+	// console.log('login endpoint');
 
 	try {
 		const user = await findUserByEmail(email);
-		console.log(user);
+		// console.log(user);
 
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}
 
 		const isPasswordCorrect = await bcrypt.compare(password, user.password);
-		console.log(isPasswordCorrect);
+		// console.log(isPasswordCorrect);
 
-		console.log(process.env.JWT_SECRET_KEY);
+		// console.log(process.env.JWT_SECRET_KEY);
 
 		if (!isPasswordCorrect) {
 			return res.status(400).json({ message: 'Invalid password' });
@@ -41,7 +41,7 @@ const login = async (req, res) => {
 					expiresIn: '24h',
 				}
 			);
-			console.log('token' + token);
+			// console.log('token' + token);
 
 			res.cookie('token', token, {
 				maxAge: 24 * 60 * 60 * 1000,
@@ -54,14 +54,14 @@ const login = async (req, res) => {
 	}
 };
 const register = async (req, res) => {
-	console.log('register endpoint');
+	// console.log('register endpoint');
 
 	try {
 		const { firstName, lastName, email, password, phone, role } = req.body;
-		console.log(await findUserByEmail(email));
+		// console.log(await findUserByEmail(email));
 
 		if (await findUserByEmail(email)) {
-			console.log('User already exists');
+			// console.log('User already exists');
 			return res.status(400).json({ message: 'User already exists' });
 		}
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
