@@ -7,27 +7,38 @@ import Loading from '../components/Loading/Loading';
 import ProfileInfoButton from '../components/ProfileInfoButton/ProfileInfoButton';
 import ManageAccount from '../components/ManageAccount/ManageAccount';
 import _ from 'lodash';
+import axios from 'axios';
+import { ENDPOINTS } from '../../config.js';
 
 export default function ProfilePage() {
 	const [profileData, setProfileData] = useState(null);
 	const [selectedTab, setSelectedTab] = useState('account');
+	const [refresh, setRefresh] = useState(false);
 
 	useEffect(() => {
 		const token = Cookies.get('token');
-		console.log(token);
+		// console.log(token);
+
+		const fetchData = async (id) => {
+			const response = await axios.get(`${ENDPOINTS.USERS}/id/${id}`, {
+				withCredentials: true,
+			});
+			// console.log(response.data);
+			setProfileData(response.data);
+		};
 
 		if (token) {
-			console.log();
-
 			const decodedData = jwtDecode(token);
-			console.log(decodedData);
-
-			setProfileData(decodedData);
+			fetchData(decodedData.id);
 		}
-	}, []);
+	}, [refresh]);
 
 	const handleSelect = (selectedTab) => {
 		setSelectedTab(selectedTab);
+	};
+
+	const refreshData = () => {
+		setRefresh((prev) => !prev);
 	};
 
 	if (!profileData) {
@@ -67,7 +78,7 @@ export default function ProfilePage() {
 				<LogoutButton />
 			</div>
 			<div className='content'>
-				{selectedTab === 'account' && <ManageAccount />}
+				{selectedTab === 'account' && <ManageAccount onUpdate={refreshData} />}
 			</div>
 		</div>
 	);

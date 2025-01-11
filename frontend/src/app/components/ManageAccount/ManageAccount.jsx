@@ -6,8 +6,7 @@ import './ManageAccount.scss';
 import UpdateForm from '../UpdateForm/UpdateForm';
 import ChangePassword from '../ChangePasswordForm/ChangePasswordForm.jsx';
 
-
-export default function ManageAccount() {
+export default function ManageAccount({ onUpdate }) {
 	const [profileData, setProfileData] = useState({
 		firstName: '',
 		lastName: '',
@@ -17,6 +16,7 @@ export default function ManageAccount() {
 		password: '',
 	});
 	const [updateData, setUpdateData] = useState({});
+	const [refresh, setRefresh] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -24,7 +24,7 @@ export default function ManageAccount() {
 
 			if (token) {
 				const decodedData = jwtDecode(token);
-				console.log(decodedData.id);
+				// console.log(decodedData.id);
 
 				const data = await axios.get(
 					`http://localhost:4000/api/users/id/${decodedData.id}`,
@@ -40,10 +40,14 @@ export default function ManageAccount() {
 					password: data.data.password || '',
 					id: data.data._id,
 				});
+
+				if (onUpdate) {
+					onUpdate();
+				}
 			}
 		};
 		fetchData();
-	}, []);
+	}, [refresh, onUpdate]);
 
 	const defaultValues = {
 		firstName: {
@@ -71,6 +75,9 @@ export default function ManageAccount() {
 			label: 'Phone',
 		},
 	};
+	const handleRefresh = () => {
+		setRefresh((prev) => !prev);
+	};
 
 	const deleteAccount = async () => {};
 
@@ -89,6 +96,7 @@ export default function ManageAccount() {
 						defaultValue={defaultValues.firstName.defaultValue}
 						label={defaultValues.firstName.label}
 						profileData={profileData}
+						onUpdate={handleRefresh}
 					/>
 				</div>
 				<div className='personal-details-last-name section'>
@@ -99,6 +107,7 @@ export default function ManageAccount() {
 						defaultValue={defaultValues.lastName.defaultValue}
 						label={defaultValues.lastName.label}
 						profileData={profileData}
+						onUpdate={handleRefresh}
 					/>
 				</div>
 				<div className='personal-details-email section'>
@@ -109,6 +118,7 @@ export default function ManageAccount() {
 						defaultValue={profileData.email}
 						label={defaultValues.email.label}
 						profileData={profileData}
+						onUpdate={handleRefresh}
 					/>
 				</div>
 				<div className='personal-details-phone section'>
@@ -119,6 +129,7 @@ export default function ManageAccount() {
 						defaultValue={defaultValues.phone.defaultValue}
 						label={defaultValues.phone.label}
 						profileData={profileData}
+						onUpdate={handleRefresh}
 					/>
 				</div>
 			</div>
@@ -130,7 +141,7 @@ export default function ManageAccount() {
 
 				<div className='section'>
 					<p>Change password</p>
-					<ChangePassword />
+					<ChangePassword profileData={profileData} />
 				</div>
 
 				<div className='section'>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import { API_BASE_URL, ENDPOINTS } from '../../../config';
+import { ENDPOINTS } from '../../../config';
 
 export default function UpdateForm({
 	describtion,
@@ -9,6 +9,7 @@ export default function UpdateForm({
 	defaultValue,
 	label,
 	profileData,
+	onUpdate,
 }) {
 	const [isActive, setIsActive] = useState(false);
 	const [updateData, setUpdateData] = useState({});
@@ -18,13 +19,22 @@ export default function UpdateForm({
 	};
 
 	const handleSubmit = async (e) => {
-		const response = await axios.put(
-			`${ENDPOINTS.USERS}/${profileData.id}`,
-			updateData,
-			{ withCredentials: true }
-		);
+		e.preventDefault();
+		try {
+			const response = await axios.put(
+				`${ENDPOINTS.USERS}/${profileData.id}`,
+				updateData,
+				{ withCredentials: true }
+			);
 
-		console.log(response);
+			if (response.status === 200) {
+				onUpdate();
+				setIsActive(false);
+				// console.log('updated');
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
