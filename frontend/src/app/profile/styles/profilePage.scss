@@ -1,24 +1,26 @@
 .profile-page {
-	width: 50%;
+	width: 60%;
 	margin: auto;
 	// border: 5px solid red;
 
 	.profile-page-inner {
 		margin-top: 100px;
-		display: grid;
-		grid-template-columns: 1fr 5fr;
-		gap: 20px;
+		display: flex;
+		// grid-template-columns: 1fr 4fr;
+		gap: 40px;
 
 		.profile-menu {
+			width: 20%;
 			display: flex;
 			flex-direction: column;
 			// justify-content: center;
 			align-items: center;
-			background-color: rgba(211, 211, 211, 0.473);
-			border-radius: 20px;
+			// background-color: rgba(211, 211, 211, 0.473);
+			border-radius: 10px;
+			border: 1px solid lightgray;
 			// padding: 10px;
 			overflow: hidden;
-
+			height: fit-content;
 			.profile-info {
 				margin: 10px;
 				display: flex;
@@ -46,6 +48,7 @@
 				font-weight: bold;
 				overflow: hidden;
 				border-top: 1px solid lightgray;
+				margin: 0px;
 			}
 			.logout-button:hover {
 				background-color: rgba(255, 0, 0, 0.8);
@@ -53,22 +56,29 @@
 
 			.profile-info-button {
 				border: none;
+				font-size: 1rem;
 				border-top: 1px solid lightgray;
+				padding: 15px 15px 15px 15px;
+				width: 100%;
+				background-color: white;
 			}
 			.profile-info-button:hover {
-				background-color: rgb(175, 175, 175);
+				// background-color: rgb(207, 207, 207);
+				color: #fc4545;
+				text-decoration: underline;
 			}
 			.active {
-				background-color: rgb(175, 175, 175);
+				color: #fc4545;
 			}
 		}
 		.content {
+			width: 80%;
 			display: flex;
 			flex-direction: column;
-			width: 100%;
-			height: 100px;
-			background-color: rgba(211, 211, 211, 0.473);
-			border-radius: 20px;
+			// width: 100%;
+			// height: 100px;
+			// background-color: rgba(211, 211, 211, 0.473);
+			// border-radius: 10px;
 		}
 	}
 }

@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import LogoutButton from '../components/LogoutButton/LogoutButton';
 import Loading from '../components/Loading/Loading';
 import ProfileInfoButton from '../components/ProfileInfoButton/ProfileInfoButton';
+import ManageAccount from '../components/ManageAccount/ManageAccount';
+import _ from 'lodash';
 
 export default function ProfilePage() {
 	const [profileData, setProfileData] = useState(null);
@@ -38,7 +40,7 @@ export default function ProfilePage() {
 				<div className='profile-info'>
 					<div className='profile-avatar'></div>
 					<div className='profile-name'>{`${profileData.firstName} ${profileData.lastName}`}</div>
-					<div className='profile-role'>{profileData.role}</div>
+					<div className='profile-role'>{_.capitalize(profileData.role)}</div>
 				</div>
 				<ProfileInfoButton
 					isSelected={selectedTab === 'account'}
@@ -64,7 +66,9 @@ export default function ProfilePage() {
 				)}
 				<LogoutButton />
 			</div>
-			<div className='content'></div>
+			<div className='content'>
+				{selectedTab === 'account' && <ManageAccount />}
+			</div>
 		</div>
 	);
 }
