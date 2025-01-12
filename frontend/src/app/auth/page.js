@@ -17,6 +17,12 @@ export default function AuthPage() {
 	const [role, setRole] = useState('');
 
 	const handleSelect = (selectedButton) => {
+		setEmail('');
+		setPassword('');
+		setFirstName('');
+		setLastName('');
+		setPhone('');
+		setRole('');
 		setSelectedButton(selectedButton);
 	};
 
@@ -102,6 +108,7 @@ export default function AuthPage() {
 								setEmail(e.target.value);
 							}}
 							placeholder='Email'
+							value={email}
 						/>
 						<input
 							type='password'
@@ -109,6 +116,7 @@ export default function AuthPage() {
 							name='password'
 							onChange={(e) => setPassword(e.target.value)}
 							placeholder='Password'
+							value={password}
 						/>
 						<button type='submit'>Log in</button>
 					</form>
@@ -122,6 +130,7 @@ export default function AuthPage() {
 								setFirstName(e.target.value);
 							}}
 							placeholder='First Name'
+							value={firstName}
 						></input>
 						<input
 							type='text'
@@ -131,6 +140,7 @@ export default function AuthPage() {
 								setLastName(e.target.value);
 							}}
 							placeholder='Last Name'
+							value={lastName}
 						></input>
 						<input
 							type='email'
@@ -140,6 +150,7 @@ export default function AuthPage() {
 								setEmail(e.target.value);
 							}}
 							placeholder='Email'
+							value={email}
 						/>
 						<input
 							type='password'
@@ -147,6 +158,7 @@ export default function AuthPage() {
 							name='password'
 							onChange={(e) => setPassword(e.target.value)}
 							placeholder='Password'
+							value={password}
 						/>
 						<input
 							type='text'
@@ -154,6 +166,7 @@ export default function AuthPage() {
 							name='phone'
 							onChange={(e) => setPhone(e.target.value)}
 							placeholder='Phone'
+							value={phone}
 						></input>
 						<select
 							id='role'

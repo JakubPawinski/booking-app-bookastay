@@ -6,6 +6,7 @@ import LogoutButton from '../components/LogoutButton/LogoutButton';
 import Loading from '../components/Loading/Loading';
 import ProfileInfoButton from '../components/ProfileInfoButton/ProfileInfoButton';
 import ManageAccount from '../components/ManageAccount/ManageAccount';
+import AddAccomodation from '../components/AddAccomodation/AddAccomodation';
 import _ from 'lodash';
 import axios from 'axios';
 import { ENDPOINTS } from '../../config.js';
@@ -75,7 +76,7 @@ export default function ProfilePage() {
 				{profileData.role === 'owner' && (
 					<ProfileInfoButton
 						isSelected={selectedTab === 'add-accomodation'}
-						onSelect={() => handleSelect('add-accomodation')}
+						onSelect={() => handleSelect('add-accomodations')}
 					>
 						Add your accomodation
 					</ProfileInfoButton>
@@ -84,6 +85,7 @@ export default function ProfilePage() {
 			</div>
 			<div className='content'>
 				{selectedTab === 'account' && <ManageAccount onUpdate={refreshData} />}
+				{selectedTab === 'add-accomodations' && <AddAccomodation />}
 			</div>
 		</div>
 	);

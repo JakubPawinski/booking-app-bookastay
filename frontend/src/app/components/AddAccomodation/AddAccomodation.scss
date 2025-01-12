@@ -1,0 +1,85 @@
+.add-accomodation-component {
+	// border: 5px solid red;
+	h3 {
+		font-size: 1.5rem;
+		margin-top: 10px;
+		margin-bottom: 0px;
+	}
+
+	.section-describtion {
+		font-size: 1rem;
+		margin-top: 8px;
+		color: #595959;
+		margin-bottom: 10px;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+
+		.section {
+			border-top: 1px solid lightgray;
+			display: grid;
+			grid-template-columns: 1fr 4fr;
+			padding: 8px;
+
+			p {
+				font-size: 1.1rem;
+			}
+
+			div {
+				display: flex;
+				gap: 10px;
+
+				input,
+				textarea {
+					padding: 5px;
+					border: 1px solid lightgray;
+					border-radius: 5px;
+					align-self: center;
+					// width: 20%;
+
+					&:focus {
+						border: 1px solid #fc4545;
+						box-shadow: none;
+						outline: none;
+					}
+				}
+			}
+			.basic-info-inputs {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				input,
+				textarea {
+					align-self: flex-start;
+				}
+				textarea {
+					width: 100%;
+					max-width: 652px;
+				}
+			}
+
+			.price-inputs,
+			.availability-inputs {
+				display: flex;
+				gap: 10px;
+			}
+		}
+	}
+
+	button {
+		background-color: #fc4545;
+		color: white;
+		padding: 8px;
+		border: none;
+		border-radius: 5px;
+		width: fit-content;
+		align-self: flex-end;
+
+		&:hover {
+			background-color: #fe2020;
+		}
+	}
+}

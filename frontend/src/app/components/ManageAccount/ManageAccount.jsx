@@ -81,19 +81,19 @@ export default function ManageAccount({ onUpdate }) {
 	const deleteAccount = async () => {
 		console.log('delete account');
 
-		// try {
-		// 	const response = await axios.delete(
-		// 		`http://localhost:4000/api/users/${profileData.id}`,
-		// 		{ withCredentials: true }
-		// 	);
-		// 	if (response.status === 200) {
-		// 		Cookies.remove('token');
-		// 		window.dispatchEvent(new Event('reload'));
-		// 		router.push('/');
-		// 	}
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+		try {
+			const response = await axios.delete(
+				`http://localhost:4000/api/users/${profileData.id}`,
+				{ withCredentials: true }
+			);
+			if (response.status === 200) {
+				Cookies.remove('token');
+				window.dispatchEvent(new Event('reload'));
+				router.push('/');
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (

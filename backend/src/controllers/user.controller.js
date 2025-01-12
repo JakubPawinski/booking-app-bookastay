@@ -1,4 +1,6 @@
 import User from '../models/user.model.js';
+import House from '../models/house.model.js';
+import Reservation from '../models/reservation.model.js';
 import { findUserByEmail, findUserById } from '../utils/user.util.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
@@ -102,11 +104,16 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
 	const { id } = req.params;
 	try {
-		const user = await User.findByIdAndDelete(id);
+		const user = await User.findById(id);
 
 		if (!user) {
 			return res.status(404).json({ message: 'User not found' });
 		}
+
+		await House.deleteMany({ ownerId: id });
+		await Reservation.deleteMany({ userId: id });
+		await user.deleteOne();
+
 		res.status(200).json({ message: 'User deleted successfully' });
 	} catch (error) {
 		res.status(404).json({ message: error.message });

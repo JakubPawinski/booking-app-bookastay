@@ -24,13 +24,11 @@ const houseSchema = new mongoose.Schema({
 		medium: { type: Number },
 		high: { type: Number },
 	},
-	availability: [
-		{
-			startDate: { type: Date, required: true },
-			endDate: { type: Date, required: true },
-			isAvailable: { type: Boolean, default: true },
-		},
-	],
+	availability: {
+		startDate: { type: Date, required: true },
+		endDate: { type: Date, required: true },
+		isAvailable: { type: Boolean, default: true },
+	},
 	capacity: {
 		type: Number,
 		required: true,
