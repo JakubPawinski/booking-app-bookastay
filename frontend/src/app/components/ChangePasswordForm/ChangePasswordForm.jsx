@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { update } from 'lodash';
+import { useRouter } from 'next/navigation';
+import { ENDPOINTS } from '../../../config';
+import Cookies from 'js-cookie';
 
 export default function ChangePassword({ profileData }) {
+	const router = useRouter();
 	const [isActive, setIsActive] = useState(false);
 	const [updateData, setUpdateData] = useState({
 		'current-password': '',
@@ -29,15 +33,20 @@ export default function ChangePassword({ profileData }) {
 			console.log('updateData', updateData);
 
 			const response = await axios.put(
-				`http://localhost:4000/api/users/${profileData.id}`,
-				{ password: updateData['new-password'], oldPassword: updateData['current-password'] },
+				`${ENDPOINTS.USERS}/${profileData.id}`,
+				{
+					password: updateData['new-password'],
+					oldPassword: updateData['current-password'],
+				},
 				{ withCredentials: true }
 			);
 			console.log('change password');
 
 			if (response.status === 200) {
 				setIsActive(false);
-				// console.log('updated');
+				Cookies.remove('token');
+				window.dispatchEvent(new Event('reload'));
+				await router.push('/auth');
 			}
 		} catch (error) {
 			console.log(error);

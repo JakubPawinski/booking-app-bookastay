@@ -38,12 +38,16 @@ export default function AuthPage() {
 					},
 					{ withCredentials: true }
 				);
-				console.log(response);
+				// console.log(response);
 
 				window.dispatchEvent(new Event('reload'));
 				router.replace('/');
 			} catch (error) {
 				// alert('Invalid email or password');
+				if (error.response.status === 400 || error.response.status === 404) {
+					alert('Invalid email or password');
+					return;
+				}
 				console.error(error);
 			}
 		}

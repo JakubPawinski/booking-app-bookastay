@@ -9,11 +9,13 @@ import ManageAccount from '../components/ManageAccount/ManageAccount';
 import _ from 'lodash';
 import axios from 'axios';
 import { ENDPOINTS } from '../../config.js';
+import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
 	const [profileData, setProfileData] = useState(null);
 	const [selectedTab, setSelectedTab] = useState('account');
 	const [refresh, setRefresh] = useState(false);
+	const router = useRouter();
 
 	useEffect(() => {
 		const token = Cookies.get('token');
@@ -30,6 +32,9 @@ export default function ProfilePage() {
 		if (token) {
 			const decodedData = jwtDecode(token);
 			fetchData(decodedData.id);
+		} else {
+			console.log('no token');
+			router.push('/auth');
 		}
 	}, [refresh]);
 

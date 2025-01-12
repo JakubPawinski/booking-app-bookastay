@@ -5,6 +5,7 @@ import axios from 'axios';
 import './ManageAccount.scss';
 import UpdateForm from '../UpdateForm/UpdateForm';
 import ChangePassword from '../ChangePasswordForm/ChangePasswordForm.jsx';
+import { useRouter } from 'next/navigation';
 
 export default function ManageAccount({ onUpdate }) {
 	const [profileData, setProfileData] = useState({
@@ -17,6 +18,7 @@ export default function ManageAccount({ onUpdate }) {
 	});
 	const [updateData, setUpdateData] = useState({});
 	const [refresh, setRefresh] = useState(false);
+	const router = useRouter();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -40,14 +42,11 @@ export default function ManageAccount({ onUpdate }) {
 					password: data.data.password || '',
 					id: data.data._id,
 				});
-
-				if (onUpdate) {
-					onUpdate();
-				}
+				onUpdate();
 			}
 		};
 		fetchData();
-	}, [refresh, onUpdate]);
+	}, [refresh]);
 
 	const defaultValues = {
 		firstName: {
@@ -79,7 +78,23 @@ export default function ManageAccount({ onUpdate }) {
 		setRefresh((prev) => !prev);
 	};
 
-	const deleteAccount = async () => {};
+	const deleteAccount = async () => {
+		console.log('delete account');
+
+		// try {
+		// 	const response = await axios.delete(
+		// 		`http://localhost:4000/api/users/${profileData.id}`,
+		// 		{ withCredentials: true }
+		// 	);
+		// 	if (response.status === 200) {
+		// 		Cookies.remove('token');
+		// 		window.dispatchEvent(new Event('reload'));
+		// 		router.push('/');
+		// 	}
+		// } catch (error) {
+		// 	console.log(error);
+		// }
+	};
 
 	return (
 		<div className='profile-page-manage-account'>

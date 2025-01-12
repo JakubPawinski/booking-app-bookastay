@@ -3,6 +3,8 @@ import fs from 'fs';
 const path = './logs/app.log';
 
 const loggerMiddleware = (req, res, next) => {
+	// console.log('loggerMiddleware');
+
 	const originalJson = res.json;
 	res.json = function (body) {
 		res._body = body; // Zachowanie body do logowania
