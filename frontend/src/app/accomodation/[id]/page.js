@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from '@/app/components/Loading/Loading.jsx';
+import Calendar from '@/app/components/Calendar/Calendar';
 
 export default function AccomodationPage({ params }) {
 	const [accomodation, setAccomodation] = useState(null);
@@ -51,6 +52,7 @@ export default function AccomodationPage({ params }) {
 					<div className='accomodation-page-describtion-content'>
 						{accomodation.description}
 					</div>
+					<Calendar />
 				</div>
 				<div className='accomodation-page-reservation'>
 					<h3>
