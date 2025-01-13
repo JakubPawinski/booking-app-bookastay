@@ -1,12 +1,14 @@
 import './Calendar.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ENDPOINTS } from '@/config';
 
 export default function Calendar({ reservationID }) {
-	const [selectedDateFirst, setSelectedDateFirst] = useState(new Date());
-
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(null);
 	const [selectedMonth, setSelectedMonth] = useState(new Date());
+
+	const currentDate = new Date();
 	const getReservations = () => {
 		try {
 			const reservations = axios.get(
@@ -32,11 +34,33 @@ export default function Calendar({ reservationID }) {
 		10: 'November',
 		11: 'December',
 	};
+	useEffect(() => {
+		console.log('startDate:', startDate);
+		console.log('endDate:', endDate);
+	}, [startDate, endDate]);
+
+	const handleDateClick = (date) => {
+		if (date.setHours(0, 0, 0, 0) < currentDate.setHours(0, 0, 0, 0)) return;
+		if (!startDate) {
+			setStartDate(date);
+			setEndDate(null);
+		} else if (startDate && !endDate) {
+			if (date >= startDate) {
+				setEndDate(date);
+			} else {
+				setStartDate(date);
+				setEndDate(startDate);
+			}
+		} else {
+			setStartDate(date);
+			setEndDate(null);
+		}
+	};
 
 	const renderDays = (date) => {
 		const year = date.getFullYear();
 		const month = date.getMonth();
-		const lastDayOfMonth = new Date(year, month + 1, 0).getDay();
+		// const lastDayOfMonth = new Date(year, month + 1, 0).getDay();
 		const firstDayOfMonth = new Date(year, month, 1).getDay();
 		const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -44,20 +68,48 @@ export default function Calendar({ reservationID }) {
 			<td key={`empty-${i}`} className='empty-day'></td>
 		));
 
-		const monthDays = Array.from({ length: daysInMonth }, (_, i) => (
-			<td
-				key={`day-${i + 1}`}
-				className={`calendar-day ${
-					selectedDateFirst.getDate() === i + 1 ? 'selected' : ''
-				}`}
-				onClick={() => setSelectedDateFirst(new Date(year, month, i + 1))}
-			>
-				{i + 1}
-			</td>
-		));
+		const monthDays = Array.from({ length: daysInMonth }, (_, i) => {
+			const selectedDate = new Date(year, month, i + 1);
+			const isStart =
+				startDate &&
+				selectedDate.getDate() === startDate.getDate() &&
+				selectedDate.getMonth() === startDate.getMonth() &&
+				selectedDate.getFullYear() === startDate.getFullYear();
+
+			const isEnd =
+				endDate &&
+				selectedDate.getDate() === endDate.getDate() &&
+				selectedDate.getMonth() === endDate.getMonth() &&
+				selectedDate.getFullYear() === endDate.getFullYear();
+
+			const isInRange =
+				startDate &&
+				endDate &&
+				selectedDate > startDate &&
+				selectedDate < endDate;
+
+			return (
+				<td
+					key={`day-${i + 1}`}
+					className={`calendar-day 
+						${isStart && !endDate ? 'selected-date' : ''}
+						${isStart && endDate ? 'selected-date start-date' : ''} 
+						${isEnd ? 'selected-date end-date' : ''} 
+						${isInRange ? 'in-range-date' : ''}
+						${
+							selectedDate.setHours(0, 0, 0, 0) <
+							currentDate.setHours(0, 0, 0, 0)
+								? 'disabled-date'
+								: ''
+						}`}
+					onClick={() => handleDateClick(selectedDate)}
+				>
+					{i + 1}
+				</td>
+			);
+		});
 		const allDays = [...emptyDays, ...monthDays];
 
-		// Dzielenie na tygodnie
 		const weeks = Array.from(
 			{ length: Math.ceil(allDays.length / 7) },
 			(_, i) => <tr key={`week-${i}`}>{allDays.slice(i * 7, (i + 1) * 7)}</tr>
@@ -83,15 +135,17 @@ export default function Calendar({ reservationID }) {
 					<p>{date.getFullYear()}</p>
 				</h3>
 				<table className='calendar-days-names'>
-					<tr>
-						<td>Sun</td>
-						<td>Mon</td>
-						<td>Tue</td>
-						<td>Wed</td>
-						<td>Thu</td>
-						<td>Fri</td>
-						<td>Sat</td>
-					</tr>
+					<thead>
+						<tr>
+							<td>Sun</td>
+							<td>Mon</td>
+							<td>Tue</td>
+							<td>Wed</td>
+							<td>Thu</td>
+							<td>Fri</td>
+							<td>Sat</td>
+						</tr>
+					</thead>
 				</table>
 			</div>
 			<div className='calendar-days'>{renderDays(date)}</div>
@@ -104,7 +158,11 @@ export default function Calendar({ reservationID }) {
 				{'<'}
 			</button>
 			<div className='calendars-wrapper'>{renderCalendar(selectedMonth)}</div>
-			{/* <div className='calendars-wrapper'>{renderCalendar(selectedMonth)}</div> */}
+			<div className='calendars-wrapper'>
+				{renderCalendar(
+					new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1)
+				)}
+			</div>
 			<button className='nav-button next' onClick={() => changeMonth(1)}>
 				{'>'}
 			</button>
