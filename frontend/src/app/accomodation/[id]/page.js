@@ -4,14 +4,72 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from '@/app/components/Loading/Loading.jsx';
 import Calendar from '@/app/components/Calendar/Calendar';
+import { jwtDecode } from 'jwt-decode';
+import Cookies from 'js-cookie';
+import { ENDPOINTS } from '@/config';
 
 export default function AccomodationPage({ params }) {
+	const [userId, setUserId] = useState(null);
 	const [accomodation, setAccomodation] = useState(null);
 	const [selectedDates, setSelectedDates] = useState({
 		startDate: null,
 		endDate: null,
 	});
-	const [guests, setGuests] = useState();
+	const [guests, setGuests] = useState(1);
+	const [totalPrice, setTotalPrice] = useState(0);
+	const [lowSeasonPrice, setLowSeasonPrice] = useState(0);
+
+	useEffect(() => {
+		const token = Cookies.get('token');
+
+		if (token) {
+			const decodedToken = jwtDecode(token);
+			setUserId(decodedToken.id);
+			// console.log(decodedToken);
+		}
+		// console.log(token);
+	}, []);
+
+	useEffect(() => {
+		const fetchLowSeasonPrice = async () => {
+			try {
+				const response = await axios.get(`${ENDPOINTS.HOUSES}/${params.id}`);
+				// console.log(response.data);
+
+				setLowSeasonPrice(response.data.pricePerNight.low);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchLowSeasonPrice();
+	}, []);
+
+	useEffect(() => {
+		const fetchPrice = async () => {
+			if (!selectedDates.startDate || !selectedDates.endDate) {
+				// console.log('No dates selected');
+				return;
+			}
+			try {
+				// console.log(selectedDates);
+
+				// console.log('URL:', `${ENDPOINTS.HOUSES}/price/${params.id}`);
+				const response = await axios.post(
+					`${ENDPOINTS.HOUSES}/price/${params.id}`,
+					{
+						startDate: selectedDates.startDate,
+						endDate: selectedDates.endDate,
+					},
+					{ withCredentials: true }
+				);
+				setTotalPrice(response.data.price);
+				// console.log(response.data);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchPrice();
+	}, [selectedDates]);
 
 	useEffect(() => {
 		try {
@@ -45,9 +103,33 @@ export default function AccomodationPage({ params }) {
 	accomodation.capacity = 6;
 
 	const handleSubmit = async (e) => {
+		if (!selectedDates.startDate || !selectedDates.endDate) {
+			alert('Select dates');
+			return;
+		}
 		e.preventDefault();
 
-		console.log(e);
+		const reservationData = {
+			houseId: accomodation._id,
+			guestId: userId,
+			startDate: selectedDates.startDate,
+			endDate: selectedDates.endDate,
+			totalPrice: totalPrice,
+			isConfirmed: false,
+			peopleAmount: guests,
+		};
+
+		try {
+			const response = await axios
+				.post(`${ENDPOINTS.RESERVATIONS}`, reservationData)
+				.then((res) => {
+					console.log(res);
+				});
+		} catch (error) {
+			console.error(error);
+		}
+
+		// console.log(reservationData);
 
 		console.log('Submit reservation');
 	};
@@ -84,7 +166,7 @@ export default function AccomodationPage({ params }) {
 				</div>
 				<div className='accomodation-page-reservation'>
 					<h3>
-						<p>{}450zł</p>
+						<p>{lowSeasonPrice} zł</p>
 						<p>night</p>
 					</h3>
 					<form
@@ -128,7 +210,7 @@ export default function AccomodationPage({ params }) {
 					</form>
 					<div className='accomodation-page-reservation-price'>
 						<p>Total</p>
-						<p>4500zł</p>
+						<p>{totalPrice}zł</p>
 					</div>
 				</div>
 			</div>

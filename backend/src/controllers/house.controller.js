@@ -1,5 +1,7 @@
 import House from '../models/house.model.js';
 
+import { getPrice } from '../utils/house.util.js';
+
 const getHouses = async (req, res) => {
 	// Add filters to the query
 	try {
@@ -34,18 +36,18 @@ const updateHouse = async (req, res) => {
 
 		const house = await House.findByIdAndUpdate(id, req.body);
 		// console.log(house);
-		
+
 		if (!house) {
 			return res.status(404).json({ message: 'House not found' });
 		}
 
 		const updatedHouse = await House.findById(id);
 		// console.log(updatedHouse);
-		
+
 		res.status(200).json(updatedHouse);
 	} catch (error) {
 		// console.log('error');
-		
+
 		res.status(404).json({ message: error.message });
 	}
 };
@@ -73,4 +75,32 @@ const deleteHouse = async (req, res) => {
 		res.status(404).json({ message: error.message });
 	}
 };
-export { getHouses, getHouseById, updateHouse, addHouse, deleteHouse };
+
+const calculatePrice = async (req, res) => {
+	const { houseId } = req.params;
+
+	const { startDate, endDate } = req.body;
+
+	// console.log('Calculating price'););
+	
+	try {
+		const house = await House.findById(houseId);
+
+		if (!house) {
+			return res.status(404).json({ message: 'House not found' });
+		}
+		const price = getPrice(house.pricePerNight, startDate, endDate);
+
+		return res.status(200).json({ price: price });
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+export {
+	getHouses,
+	getHouseById,
+	updateHouse,
+	addHouse,
+	deleteHouse,
+	calculatePrice,
+};

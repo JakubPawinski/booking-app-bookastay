@@ -2,22 +2,36 @@ import './Calendar.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ENDPOINTS } from '@/config';
+import { get } from 'lodash';
 
 export default function Calendar({ houseId, onChange }) {
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(null);
 	const [selectedMonth, setSelectedMonth] = useState(new Date());
+	const [reservations, setReservations] = useState([]);
 	const currentDate = new Date();
 
-	const getReservations = () => {
-		try {
-			const reservations = axios.get(
-				`${ENDPOINTS.RESERVATIONS}/house/${houseId}`
-			);
-			console.log(reservations);
-		} catch (error) {
-			console.error(error);
-		}
+	useEffect(() => {
+		const fetchReservations = async () => {
+			try {
+				const reservations = await axios.get(
+					`${ENDPOINTS.RESERVATIONS}/house/${houseId}`
+				);
+				setReservations(reservations.data);
+				console.log(reservations.data);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchReservations();
+	}, []);
+
+	const isDateReserved = (date) => {
+		return reservations.some((reservation) => {
+			const start = new Date(reservation.startDate);
+			const end = new Date(reservation.endDate);
+			return date >= start && date <= end;
+		});
 	};
 
 	const months = {
@@ -36,27 +50,47 @@ export default function Calendar({ houseId, onChange }) {
 	};
 
 	useEffect(() => {
-		console.log('startDate:', startDate);
-		console.log('endDate:', endDate);
+		// console.log('startDate:', startDate);
+		// console.log('endDate:', endDate);
 		onChange({ startDate: startDate, endDate: endDate });
 	}, [startDate, endDate]);
 
 	const handleDateClick = (date) => {
+		console.log('handleDateClick:', date);
+
 		if (date.setHours(0, 0, 0, 0) < currentDate.setHours(0, 0, 0, 0)) return;
+		if (isDateReserved(date)) return;
 		if (!startDate) {
 			setStartDate(date);
 			setEndDate(null);
 		} else if (startDate && !endDate) {
-			if (date >= startDate) {
+			// console.log('start:', startDate);
+
+			if (date >= startDate && !isRangeReserved(startDate, date)) {
 				setEndDate(date);
+			} else if (date < startDate && !isRangeReserved(date, startDate)) {
+				setEndDate(startDate);
+				setStartDate(date);
 			} else {
 				setStartDate(date);
-				setEndDate(startDate);
+				setEndDate(null);
 			}
 		} else {
 			setStartDate(date);
 			setEndDate(null);
 		}
+	};
+	const isRangeReserved = (start, end) => {
+		if (!start || !end) return false;
+
+		const currentDate = new Date(start);
+		while (currentDate <= end) {
+			if (isDateReserved(currentDate)) {
+				return true;
+			}
+			currentDate.setDate(currentDate.getDate() + 1);
+		}
+		return false;
 	};
 
 	const renderDays = (date) => {
@@ -103,7 +137,8 @@ export default function Calendar({ houseId, onChange }) {
 							currentDate.setHours(0, 0, 0, 0)
 								? 'disabled-date'
 								: ''
-						}`}
+						}
+						${isDateReserved(selectedDate) ? 'reserved-date' : ''}`}
 					onClick={() => handleDateClick(selectedDate)}
 				>
 					{i + 1}
