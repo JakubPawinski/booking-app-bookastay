@@ -4,7 +4,8 @@ import {
     getReservationById,
 	addReservation,
     updateReservation,
-    deleteReservation
+    deleteReservation,
+    getReservationsByHouseId
 } from '../controllers/reservation.controller.js';
 
 const router = express.Router();
@@ -18,5 +19,7 @@ router.put('/:id', updateReservation);
 router.post('/', addReservation);
 
 router.delete('/:id', deleteReservation);
+
+router.get('/house/:houseId', getReservationsByHouseId);
 
 export default router;

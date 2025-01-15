@@ -3,16 +3,16 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ENDPOINTS } from '@/config';
 
-export default function Calendar({ reservationID }) {
+export default function Calendar({ houseId, onChange }) {
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(null);
 	const [selectedMonth, setSelectedMonth] = useState(new Date());
-
 	const currentDate = new Date();
+
 	const getReservations = () => {
 		try {
 			const reservations = axios.get(
-				`${ENDPOINTS.RESERVATIONS}${reservationID}`
+				`${ENDPOINTS.RESERVATIONS}/house/${houseId}`
 			);
 			console.log(reservations);
 		} catch (error) {
@@ -34,9 +34,11 @@ export default function Calendar({ reservationID }) {
 		10: 'November',
 		11: 'December',
 	};
+
 	useEffect(() => {
 		console.log('startDate:', startDate);
 		console.log('endDate:', endDate);
+		onChange({ startDate: startDate, endDate: endDate });
 	}, [startDate, endDate]);
 
 	const handleDateClick = (date) => {
