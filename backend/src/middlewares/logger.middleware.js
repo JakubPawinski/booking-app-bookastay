@@ -7,7 +7,7 @@ const loggerMiddleware = (req, res, next) => {
 
 	const originalJson = res.json;
 	res.json = function (body) {
-		res._body = body; // Zachowanie body do logowania
+		res._body = body; 
 		return originalJson.call(this, body);
 	};
 

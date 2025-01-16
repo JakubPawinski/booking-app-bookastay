@@ -1,0 +1,51 @@
+.profile-page-manage-accomodation-item {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border-bottom: 1px solid lightgray;
+	list-style: none;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+
+	padding: 10px 0px 10px 0px;
+
+	.profile-page-accomodation-name {
+		margin: 8px;
+		font-size: 1.1rem;
+		// align-self: center;
+		margin-top: 13px;
+		a {
+			text-decoration: none;
+			color: black;
+			&:hover {
+				color: #fc4545;
+				text-decoration: underline;
+			}
+		}
+	}
+	.profile-page-manage-accomodation-content {
+		position: relative;
+
+		.manage-button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 1;
+		}
+		.accommodation-form {
+			border: 3px solid blue;
+		}
+	}
+
+	button {
+		color: #fc4545;
+		border: none;
+		background-color: white;
+		padding: 8px;
+		border-radius: 5px;
+	}
+	button:hover {
+		background-color: #fcc2c2;
+	}
+}

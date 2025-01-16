@@ -82,7 +82,7 @@ const calculatePrice = async (req, res) => {
 	const { startDate, endDate } = req.body;
 
 	// console.log('Calculating price'););
-	
+
 	try {
 		const house = await House.findById(houseId);
 
@@ -96,6 +96,19 @@ const calculatePrice = async (req, res) => {
 		res.status(404).json({ message: error.message });
 	}
 };
+
+const getHousesByOwnerId = async (req, res) => {
+	const { ownerId } = req.params;
+
+	try {
+		const houses = await House.find({ ownerID: ownerId });
+
+		res.status(200).json(houses);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
 export {
 	getHouses,
 	getHouseById,
@@ -103,4 +116,5 @@ export {
 	addHouse,
 	deleteHouse,
 	calculatePrice,
+	getHousesByOwnerId,
 };

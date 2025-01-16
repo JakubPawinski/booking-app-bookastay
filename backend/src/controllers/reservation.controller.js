@@ -30,11 +30,11 @@ const getReservationsByHouseId = async (req, res) => {
 };
 
 const getReservationsByGuestId = async (req, res) => {
-	console.log('getReservationsByGuestId');
+	// console.log('getReservationsByGuestId');
 
 	try {
 		const { guestId } = req.params;
-		console.log('guestId:', guestId);
+		// console.log('guestId:', guestId);
 		const reservations = await Reservation.find({ guestId });
 		res.status(200).json(reservations);
 	} catch (error) {

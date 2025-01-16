@@ -26,17 +26,17 @@ const userVerification = (req, res, next) => {
 };
 
 const ownerVerification = (req, res, next) => {
-	console.log('ownerVerification');
+	// console.log('ownerVerification');
 
 	const token = req.cookies.token;
-	console.log(token);
+	// console.log(token);
 	if (!token) {
 		return res.status(401).json({ message: 'Unauthorized' });
 	}
 
 	try {
 		const decodedData = jwt.verify(token, process.env.JWT_SECRET_KEY);
-		console.log(decodedData);
+		// console.log(decodedData);
 
 		if (decodedData.role !== 'owner') {
 			return res.status(403).json({ message: 'Forbidden action' });
