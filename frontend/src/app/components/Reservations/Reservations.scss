@@ -1,0 +1,116 @@
+.profile-page-reservations {
+	.profile-page-header {
+		border-bottom: 1px solid lightgray;
+		h3 {
+			font-size: 1.5rem;
+			margin-top: 10px;
+			margin-bottom: 0px;
+		}
+		.section-describtion {
+			font-size: 1rem;
+			margin-top: 8px;
+			color: #595959;
+			margin-bottom: 10px;
+		}
+	}
+	.profile-page-reservations-list {
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+
+		.reservation-page-reservation {
+			border-bottom: 1px solid lightgray;
+			list-style: none;
+			width: 100%;
+			// padding: 8px;
+			// margin: 8px;
+			display: grid;
+			grid-template-columns: 1fr 4fr;
+
+			button {
+				color: #fc4545;
+				border: none;
+				background-color: white;
+				padding: 8px;
+				border-radius: 5px;
+			}
+			button:hover {
+				background-color: #fcc2c2;
+			}
+
+			.reservation-page-reservation-name {
+				margin: 8px;
+				font-size: 1.1rem;
+				// align-self: center;
+				margin-top: 13px;
+				a {
+					text-decoration: none;
+					color: black;
+					&:hover {
+						color: #fc4545;
+						text-decoration: underline;
+					}
+				}
+			}
+			.reservation-page-reservation-info-content {
+				align-self: center;
+				margin: 8px;
+				.reservation-page-reservation-info-default {
+					display: flex;
+					justify-content: space-between;
+
+					.reservation-page-reservation-info-dates {
+						color: #595959;
+						align-self: center;
+					}
+				}
+
+				.reservation-page-reservation-info-expanded {
+					display: flex;
+					flex-direction: column;
+					gap: 5px;
+
+					position: relative;
+					.info {
+						display: flex;
+						gap: 5px;
+						// justify-content: space-between;
+						align-items: center;
+						color: #595959;
+
+						p {
+							margin: 0px;
+						}
+
+						.confirmed {
+							color: rgb(62, 133, 62);
+						}
+						.unconfirmed {
+							color: #fc4545;
+						}
+						.status {
+							color: orangered;
+							text-transform: capitalize;
+						}
+					}
+					.click-button {
+						position: absolute;
+						right: 0;
+						top: 0;
+					}
+					.cancel-button {
+						position: absolute;
+						bottom: 0;
+						right: 0;
+						background-color: #fc4545;
+						color: white;
+
+						&:hover {
+							background-color: #fe2020;
+						}
+					}
+				}
+			}
+		}
+	}
+}

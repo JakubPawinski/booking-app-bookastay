@@ -29,6 +29,19 @@ const getReservationsByHouseId = async (req, res) => {
 	}
 };
 
+const getReservationsByGuestId = async (req, res) => {
+	console.log('getReservationsByGuestId');
+
+	try {
+		const { guestId } = req.params;
+		console.log('guestId:', guestId);
+		const reservations = await Reservation.find({ guestId });
+		res.status(200).json(reservations);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
 const updateReservation = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -72,5 +85,6 @@ export {
 	addReservation,
 	updateReservation,
 	deleteReservation,
-	getReservationsByHouseId
+	getReservationsByHouseId,
+	getReservationsByGuestId as getReservationsByUserId,
 };

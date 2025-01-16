@@ -7,6 +7,7 @@ import Loading from '../components/Loading/Loading';
 import ProfileInfoButton from '../components/ProfileInfoButton/ProfileInfoButton';
 import ManageAccount from '../components/ManageAccount/ManageAccount';
 import AddAccomodation from '../components/AddAccomodation/AddAccomodation';
+import Reservations from '../components/Reservations/Reservations';
 import _ from 'lodash';
 import axios from 'axios';
 import { ENDPOINTS } from '../../config.js';
@@ -65,6 +66,15 @@ export default function ProfilePage() {
 				>
 					Manage your account
 				</ProfileInfoButton>
+				{profileData.role === 'user' ||
+					(profileData.role === 'owner' && (
+						<ProfileInfoButton
+							isSelected={selectedTab === 'reservations'}
+							onSelect={() => handleSelect('reservations')}
+						>
+							Your reservations
+						</ProfileInfoButton>
+					))}
 				{profileData.role === 'owner' && (
 					<ProfileInfoButton
 						isSelected={selectedTab === 'manage-accomodations'}
@@ -81,11 +91,13 @@ export default function ProfilePage() {
 						Add your accomodation
 					</ProfileInfoButton>
 				)}
+
 				<LogoutButton />
 			</div>
 			<div className='content'>
 				{selectedTab === 'account' && <ManageAccount onUpdate={refreshData} />}
 				{selectedTab === 'add-accomodations' && <AddAccomodation />}
+				{selectedTab === 'reservations' && <Reservations />}
 			</div>
 		</div>
 	);

@@ -1,11 +1,12 @@
 import express from 'express';
 import {
 	getReservations,
-    getReservationById,
+	getReservationById,
 	addReservation,
-    updateReservation,
-    deleteReservation,
-    getReservationsByHouseId
+	updateReservation,
+	deleteReservation,
+	getReservationsByHouseId,
+	getReservationsByUserId,
 } from '../controllers/reservation.controller.js';
 
 const router = express.Router();
@@ -21,5 +22,7 @@ router.post('/', addReservation);
 router.delete('/:id', deleteReservation);
 
 router.get('/house/:houseId', getReservationsByHouseId);
+
+router.get('/user/:guestId', getReservationsByUserId);
 
 export default router;

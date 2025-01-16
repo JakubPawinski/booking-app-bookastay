@@ -30,7 +30,7 @@ export default function Calendar({ houseId, onChange }) {
 		return reservations.some((reservation) => {
 			const start = new Date(reservation.startDate);
 			const end = new Date(reservation.endDate);
-			return date >= start && date <= end;
+			return date >= start && date <= end && reservation.status !== 'cancelled';
 		});
 	};
 

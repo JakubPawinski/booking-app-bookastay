@@ -16,6 +16,7 @@ const reservationSchema = new mongoose.Schema({
 	totalPrice: { type: Number, required: true },
 	isConfirmed: { type: Boolean, default: false },
 	peopleAmount: { type: Number, required: true },
+	status: { type: String, default: 'pending' },
 });
 
 const Reservation = mongoose.model('Reservation', reservationSchema);
