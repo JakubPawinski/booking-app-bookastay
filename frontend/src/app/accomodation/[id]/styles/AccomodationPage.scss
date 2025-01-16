@@ -36,6 +36,7 @@
 		.accomodation-page-details {
 			display: grid;
 			grid-template-columns: 3fr 1fr;
+			gap: 30px;
 			margin-top: 30px;
 
 			.accomodation-page-reservation {
@@ -114,6 +115,33 @@
 				.accomodation-page-reservation-price {
 					display: flex;
 					justify-content: space-between;
+				}
+			}
+
+			.accomodation-page-description {
+				// border-top: 1px solid lightgray;
+				margin-top: 0px;
+
+				.accomodation-page-description-header {
+					padding-bottom: 20px;
+					border-bottom: 1px solid lightgray;
+					.accomodation-page-describtion-name {
+						border-top: 1px solid lightgray;
+						margin: 0px;
+						padding-top: 20px;
+						font-size: 1.5rem;
+						font-weight: normal;
+					}
+				}
+				.accomodation-page-describtion-content {
+					margin-top: 20px;
+					padding-bottom: 20px;
+					border-bottom: 1px solid lightgray;
+				}
+				.accomodation-page-description-describtion {
+					margin-bottom: 20px;
+					padding-bottom: 20px;
+					border-bottom: 1px solid lightgray;
 				}
 			}
 		}

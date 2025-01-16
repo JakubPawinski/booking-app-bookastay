@@ -7,8 +7,10 @@ import Calendar from '@/app/components/Calendar/Calendar';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { ENDPOINTS } from '@/config';
+import { useRouter } from 'next/navigation';
 
 export default function AccomodationPage({ params }) {
+	const router = useRouter();
 	const [userId, setUserId] = useState(null);
 	const [accomodation, setAccomodation] = useState(null);
 	const [selectedDates, setSelectedDates] = useState({
@@ -103,6 +105,11 @@ export default function AccomodationPage({ params }) {
 	accomodation.capacity = 6;
 
 	const handleSubmit = async (e) => {
+		if (!userId) {
+			alert('You need to be logged in to make a reservation');
+			router.push('/auth');
+			return;
+		}
 		if (!selectedDates.startDate || !selectedDates.endDate) {
 			alert('Select dates');
 			return;
@@ -146,23 +153,27 @@ export default function AccomodationPage({ params }) {
 			</div>
 			<div className='accomodation-page-details'>
 				<div className='accomodation-page-description'>
-					<h2 className='accomodation-page-describtion-name'>
-						{accomodation.name}
-					</h2>
-					<div className='accomodation-page-description-capacity'>
-						{accomodation.capacity} guests
-					</div>
-					<div className='accomodation-page-description-location'>
-						{accomodation.location.city}, {accomodation.location.country}
+					<div className='accomodation-page-description-header'>
+						<h2 className='accomodation-page-describtion-name'>
+							{accomodation.name}
+						</h2>
+						<div className='accomodation-page-description-capacity'>
+							{accomodation.capacity} guests
+						</div>
+						<div className='accomodation-page-description-location'>
+							{accomodation.location.city}, {accomodation.location.country}
+						</div>
 					</div>
 					<div className='accomodation-page-describtion-content'>
 						{accomodation.description}
 					</div>
-					<Calendar
-						houseId={accomodation._id}
-						onChange={setSelectedDates}
-						value={selectedDates}
-					/>
+					<div className='accomodation-page-description-describtion'>
+						<Calendar
+							houseId={accomodation._id}
+							onChange={setSelectedDates}
+							value={selectedDates}
+						/>
+					</div>
 				</div>
 				<div className='accomodation-page-reservation'>
 					<h3>
