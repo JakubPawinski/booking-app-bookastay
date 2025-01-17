@@ -5,7 +5,6 @@ import Reservation from '../Reservation/Reservation';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
-import Loading from '../Loading/Loading';
 
 export default function Reservations() {
 	const [userId, setUserId] = useState(null);

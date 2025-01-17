@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import styles from './page.module.css';
-import Accomodation from './components/Accomodation/Accomodation';
+import Accomodation from './components/_MainPage/Accomodation/Accomodation';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Loading from '@/app/components/Loading/Loading.jsx';

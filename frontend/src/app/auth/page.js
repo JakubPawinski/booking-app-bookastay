@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import ButtonAuth from '../components/ButtonAuth/ButtonAuth';
+import ButtonAuth from '../components/_AuthPage/ButtonAuth/ButtonAuth';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 

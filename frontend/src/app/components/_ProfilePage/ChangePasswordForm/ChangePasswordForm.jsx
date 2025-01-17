@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { update } from 'lodash';
 import { useRouter } from 'next/navigation';
-import { ENDPOINTS } from '../../../config';
+import { ENDPOINTS } from '@/config';
 import Cookies from 'js-cookie';
 
 export default function ChangePassword({ profileData }) {

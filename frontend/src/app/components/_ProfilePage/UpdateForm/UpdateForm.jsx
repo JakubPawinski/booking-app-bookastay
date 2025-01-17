@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-import { ENDPOINTS } from '../../../config';
+import { ENDPOINTS } from '../../../../config';
 
 export default function UpdateForm({
 	describtion,

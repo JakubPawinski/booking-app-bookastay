@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from '@/app/components/Loading/Loading.jsx';
-import Calendar from '@/app/components/Calendar/Calendar';
+import Calendar from '@/app/components/_AccomodationPage/Calendar/Calendar';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { ENDPOINTS } from '@/config';
