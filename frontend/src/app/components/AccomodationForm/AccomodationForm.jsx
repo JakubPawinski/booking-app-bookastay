@@ -1,5 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import './AccomodationForm.scss';
 
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required('Name is required'),
@@ -28,68 +29,70 @@ const validationSchema = Yup.object().shape({
 
 export default function AccommodationForm({ initialValues, onSubmit }) {
 	return (
-		<Formik
-			initialValues={initialValues}
-			validationSchema={validationSchema}
-			onSubmit={onSubmit}
-		>
-			{() => (
-				<Form className='accommodation-form'>
-					<div>
-						<label htmlFor='name'>Name</label>
-						<Field name='name' type='text' />
-						<ErrorMessage name='name' component='div' className='error' />
-					</div>
-					<div>
-						<label htmlFor='description'>Describtion</label>
-						<Field name='description' as='textarea' />
-						<ErrorMessage
-							name='description'
-							component='div'
-							className='error'
-						/>
-					</div>
-					<div>
-						<label htmlFor='capacity'>Capacity</label>
-						<Field name='capacity' type='number' />
-						<ErrorMessage name='capacity' component='div' className='error' />
-					</div>
-					<div className='price-inputs'>
+		<div className='accommodation-form'>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={validationSchema}
+				onSubmit={onSubmit}
+			>
+				{() => (
+					<Form className='accommodation-form'>
 						<div>
-							<label htmlFor='pricePerNight.low'>Price - low season</label>
-							<Field name='pricePerNight.low' type='number' />
+							<label htmlFor='name'>Name</label>
+							<Field name='name' type='text' />
+							<ErrorMessage name='name' component='div' className='error' />
+						</div>
+						<div>
+							<label htmlFor='description'>Describtion</label>
+							<Field name='description' as='textarea' />
 							<ErrorMessage
-								name='pricePerNight.low'
+								name='description'
 								component='div'
 								className='error'
 							/>
 						</div>
+						<div>
+							<label htmlFor='capacity'>Capacity</label>
+							<Field name='capacity' type='number' />
+							<ErrorMessage name='capacity' component='div' className='error' />
+						</div>
+						<div className='price-inputs'>
+							<div>
+								<label htmlFor='pricePerNight.low'>Price - low season</label>
+								<Field name='pricePerNight.low' type='number' />
+								<ErrorMessage
+									name='pricePerNight.low'
+									component='div'
+									className='error'
+								/>
+							</div>
 
-						<div>
-							<label htmlFor='pricePerNight.medium'>
-								Price - medium season
-							</label>
-							<Field name='pricePerNight.medium' type='number' />
-							<ErrorMessage
-								name='pricePerNight.medium'
-								component='div'
-								className='error'
-							/>
-						</div>
+							<div>
+								<label htmlFor='pricePerNight.medium'>
+									Price - medium season
+								</label>
+								<Field name='pricePerNight.medium' type='number' />
+								<ErrorMessage
+									name='pricePerNight.medium'
+									component='div'
+									className='error'
+								/>
+							</div>
 
-						<div>
-							<label htmlFor='pricePerNight.high'>Price - high season</label>
-							<Field name='pricePerNight.high' type='number' />
-							<ErrorMessage
-								name='pricePerNight.high'
-								component='div'
-								className='error'
-							/>
+							<div>
+								<label htmlFor='pricePerNight.high'>Price - high season</label>
+								<Field name='pricePerNight.high' type='number' />
+								<ErrorMessage
+									name='pricePerNight.high'
+									component='div'
+									className='error'
+								/>
+							</div>
 						</div>
-					</div>
-					<button type='submit'>Save</button>
-				</Form>
-			)}
-		</Formik>
+						<button type='submit'>Save</button>
+					</Form>
+				)}
+			</Formik>
+		</div>
 	);
 }

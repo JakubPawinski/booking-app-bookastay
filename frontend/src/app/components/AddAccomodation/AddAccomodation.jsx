@@ -73,7 +73,7 @@ export default function AddAccomodation() {
 		console.log('submitting');
 	};
 	return (
-		<div className='add-accomodation-component'>
+		<div className='add-accomodation-component profile-page-component'>
 			<h3>Add Accomodation</h3>
 			<div className='section-describtion'>
 				Add your accomodation details here.

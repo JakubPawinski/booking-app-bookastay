@@ -1,0 +1,129 @@
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.manage-reservation {
+	animation: fadeIn 0.5s ease-out forwards;
+	max-width: 100%;
+	border-bottom: 1px solid lightgray;
+	list-style: none;
+	padding: 15px 0;
+	p {
+		margin: 3px;
+	}
+
+	&:nth-child(n) {
+		animation-delay: calc(n * 0.1s);
+	}
+
+	.dates-section,
+	.guests-section,
+	.status-section {
+		display: flex;
+		gap: 10px;
+		// margin: 8px;
+		align-items: center;
+
+		.section-label {
+			font-size: 0.9rem;
+			color: #595959;
+			// margin-bottom: 5px;
+		}
+
+		.date-range,
+		.guest-amount,
+		.current-status {
+			// font-size: 1.1rem;
+			font-weight: 400;
+		}
+	}
+
+	.status-section {
+		.confirmed {
+			color: #4caf50;
+		}
+		.pending {
+			color: #fc4545;
+		}
+		.cancelled {
+			color: #f44336;
+		}
+		.status-options {
+			// margin: 15px 0;
+			display: flex;
+			gap: 20px;
+
+			.radio-label {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				cursor: pointer;
+
+				.radio-input {
+					display: none;
+				}
+
+				.radio-circle {
+					width: 18px;
+					height: 18px;
+					border: 2px solid #ddd;
+					border-radius: 50%;
+					position: relative;
+
+					&:after {
+						content: '';
+						position: absolute;
+						width: 10px;
+						height: 10px;
+						background: #fc4545;
+						border-radius: 50%;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						opacity: 0;
+						transition: opacity 0.2s;
+					}
+				}
+
+				.radio-input:checked + .radio-circle:after {
+					opacity: 1;
+				}
+
+				.radio-text {
+					color: #595959;
+				}
+			}
+		}
+
+		.status-selector-btn {
+			color: #fc4545;
+			border: none;
+			background-color: white;
+			padding: 8px;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.2s;
+
+			&:hover {
+				background-color: #fcc2c2;
+			}
+		}
+		.delete-btn {
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+		}
+	}
+	.error-message {
+		color: red;
+		font-size: 0.8rem;
+		margin-top: 0.5rem;
+	}
+}

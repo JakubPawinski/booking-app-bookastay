@@ -5,6 +5,7 @@ import Reservation from '../Reservation/Reservation';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
+import Loading from '../Loading/Loading';
 
 export default function Reservations() {
 	const [userId, setUserId] = useState(null);
@@ -38,7 +39,7 @@ export default function Reservations() {
 	}, [userId]);
 
 	return (
-		<div className='profile-page-reservations'>
+		<div className='profile-page-reservations profile-page-component'>
 			<div className='profile-page-header'>
 				<h3>Your reservations</h3>
 				<div className='section-describtion'>
@@ -47,7 +48,11 @@ export default function Reservations() {
 			</div>
 			<ul className='profile-page-reservations-list'>
 				{reservations
-					.sort((res) => res.startDate)
+					.sort((a, b) => {
+						const dateA = new Date(a.startDate);
+						const dateB = new Date(b.startDate);
+						return dateA - dateB;
+					})
 					.map((reservation) => (
 						<Reservation key={reservation._id} reservation={reservation} />
 					))}

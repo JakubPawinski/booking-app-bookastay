@@ -97,7 +97,7 @@ export default function ManageAccount({ onUpdate }) {
 	};
 
 	return (
-		<div className='profile-page-manage-account'>
+		<div className='profile-page-manage-account profile-page-component'>
 			<div className='profile-info-personal-details'>
 				<h3>Personal details</h3>
 				<div className='section-describtion'>

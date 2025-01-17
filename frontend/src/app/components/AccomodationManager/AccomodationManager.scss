@@ -1,20 +1,31 @@
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 .profile-page-manage-accomodation-item {
+	animation: fadeIn 0.5s ease-out forwards;
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
 	border-bottom: 1px solid lightgray;
 	list-style: none;
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 4fr;
-
-	padding: 10px 0px 10px 0px;
+	// display: grid;
+	// grid-template-columns: 1fr 4fr;
+	padding: 10px 0px;
+	margin-bottom: 20px;
 
 	.profile-page-accomodation-name {
 		margin: 8px;
 		font-size: 1.1rem;
-		// align-self: center;
 		margin-top: 13px;
+
 		a {
 			text-decoration: none;
 			color: black;
@@ -24,28 +35,66 @@
 			}
 		}
 	}
+
 	.profile-page-manage-accomodation-content {
 		position: relative;
+		margin: 8px;
+		margin-left: 20px;
+
+		.profile-page-manage-accomodation {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+
+			&-header {
+				h4 {
+					font-size: 1.2rem;
+					margin: 10px 0 0 0;
+				}
+
+				.section-describtion {
+					font-size: 0.9rem;
+					color: #595959;
+					margin: 8px 0;
+				}
+			}
+
+			&-reservations-list {
+				ul {
+					padding: 0;
+					margin: 0;
+				}
+			}
+		}
+
+		.profile-page-manage-accomodation-description {
+			color: #595959;
+			margin: 8px 0;
+		}
 
 		.manage-button {
 			position: absolute;
 			top: 0;
 			right: 0;
-			z-index: 1;
-		}
-		.accommodation-form {
-			border: 3px solid blue;
+			color: #fc4545;
+			border: none;
+			background-color: white;
+			padding: 8px;
+			border-radius: 5px;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #fcc2c2;
+			}
 		}
 	}
 
-	button {
-		color: #fc4545;
-		border: none;
-		background-color: white;
-		padding: 8px;
-		border-radius: 5px;
+	&:nth-child(n) {
+		animation-delay: calc(n * 0.1s);
 	}
-	button:hover {
-		background-color: #fcc2c2;
+	.profile-page-manage-accomodation-reservations-list {
+		max-height: 500px;
+		margin-top: 20px;
+		overflow-y: auto;
 	}
 }

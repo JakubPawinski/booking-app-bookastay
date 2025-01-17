@@ -7,6 +7,7 @@ import { ENDPOINTS } from '@/config';
 import ManageReservation from '../ManageReservation/ManageReservation';
 
 export default function AccomodationManager({ accomodation }) {
+	const [accomodationData, setAccomodationData] = useState(accomodation);
 	const [isManaging, setIsManaging] = useState(false);
 	const [reservations, setReservations] = useState([]);
 
@@ -28,17 +29,45 @@ export default function AccomodationManager({ accomodation }) {
 		};
 		fetchReservations();
 	}, []);
+
 	// console.log(accomodation);
 
 	const handleSubmit = async (values) => {
-		console.log(values);
+		try {
+			const response = await axios.put(
+				`${ENDPOINTS.HOUSES}/${accomodation._id}`,
+				values,
+				{
+					withCredentials: true,
+				}
+			);
+			setAccomodationData({ ...accomodationData, name: values.name });
+		} catch (error) {
+			console.log(error);
+		}
 	};
+
+	useEffect(() => {
+		addEventListener('reservation-deleted', (event) => {
+			console.log('reservation-deleted', event.reservationId);
+
+			const { reservationId } = event.detail;
+			setReservations((prevReservations) =>
+				prevReservations.filter(
+					(reservaation) => reservaation._id !== reservationId
+				)
+			);
+		});
+		return () => {
+			removeEventListener('reservation-deleted', () => {});
+		};
+	}, []);
 
 	return (
 		<li className='profile-page-manage-accomodation-item'>
 			<div className='profile-page-accomodation-name'>
 				<Link href={`/accomodation/${accomodation._id}`}>
-					{accomodation?.name}
+					{accomodationData.name}
 				</Link>
 			</div>
 			<div className='profile-page-manage-accomodation-content'>
@@ -54,9 +83,13 @@ export default function AccomodationManager({ accomodation }) {
 
 							<div className='profile-page-manage-accomodation-reservations-list'>
 								<ul>
-									{reservations.map((res) => (
-										<ManageReservation reservation={res} />
-									))}
+									{reservations
+										.sort(
+											(a, b) => new Date(a.startDate) - new Date(b.startDate)
+										)
+										.map((res) => (
+											<ManageReservation reservation={res} key={res._id} />
+										))}
 								</ul>
 							</div>
 						</section>
@@ -83,7 +116,7 @@ export default function AccomodationManager({ accomodation }) {
 					onClick={() => setIsManaging(!isManaging)}
 					className='manage-button'
 				>
-					See details
+					{isManaging ? 'Hide details' : 'Show details'}
 				</button>
 			</div>
 		</li>

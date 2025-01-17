@@ -38,8 +38,22 @@ export default function ManageAccomodation() {
 		};
 		fetchAccomodations();
 	}, [userId]);
+
+	useEffect(() => {
+		addEventListener('accomodation-deleted', (event) => {
+			const { accomodationId } = event.detail;
+			setAccomodations((prevAccomodations) =>
+				prevAccomodations.filter(
+					(accomodation) => accomodation._id !== accomodationId
+				)
+			);
+		});
+		return () => {
+			removeEventListener('accomodation-deleted', () => {});
+		};
+	}, []);
 	return (
-		<div className='profile-page-manage-accomodation'>
+		<div className='profile-page-manage-accomodation profile-page-component'>
 			<div className='profile-page-manage-accomodation-header'>
 				<h3>Manage your accomodations</h3>
 				<div className='section-describtion'>

@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 
 export default function AccomodationPage({ params }) {
 	const router = useRouter();
+	const [refreshKey, setRefreshKey] = useState(0);
 	const [userId, setUserId] = useState(null);
 	const [accomodation, setAccomodation] = useState(null);
 	const [selectedDates, setSelectedDates] = useState({
@@ -132,6 +133,8 @@ export default function AccomodationPage({ params }) {
 				.then((res) => {
 					console.log(res);
 				});
+			setRefreshKey(refreshKey + 1);
+			setSelectedDates({ startDate: null, endDate: null });
 		} catch (error) {
 			console.error(error);
 		}
@@ -169,6 +172,7 @@ export default function AccomodationPage({ params }) {
 					</div>
 					<div className='accomodation-page-description-describtion'>
 						<Calendar
+							key={refreshKey}
 							houseId={accomodation._id}
 							onChange={setSelectedDates}
 							value={selectedDates}

@@ -1,0 +1,74 @@
+.accommodation-form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	padding: 20px 0;
+	animation: fadeIn 0.5s ease-out forwards;
+
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+
+		label {
+			font-size: 0.9rem;
+			color: #595959;
+		}
+
+		input,
+		textarea {
+			padding: 8px;
+			border: 1px solid lightgray;
+			border-radius: 5px;
+			font-size: 1rem;
+
+			&:focus {
+				outline: none;
+				border-color: #fc4545;
+			}
+		}
+
+		textarea {
+			min-height: 100px;
+			resize: vertical;
+		}
+	}
+
+	.price-inputs {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+
+	.error {
+		color: #fc4545;
+		font-size: 0.8rem;
+		margin-top: 2px;
+	}
+
+	button[type='submit'] {
+		align-self: flex-end;
+		padding: 8px 16px;
+		background-color: #fc4545;
+		color: white;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: background-color 0.2s;
+
+		&:hover {
+			background-color: darken(#fc4545, 10%);
+		}
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
