@@ -12,10 +12,11 @@ const StatusSchema = Yup.object().shape({
 		.oneOf(['pending', 'confirmed', 'cancelled']),
 });
 
-export default function ManageReservation({ reservation }) {
+export default function ManageReservation({ reservation, onChat }) {
 	const [status, setStatus] = useState(reservation.status);
 	const [isConfirmed, setIsConfirmed] = useState(reservation.isConfirmed);
 	const [isChangingStatus, setIsChangingStatus] = useState(false);
+
 	const formatDate = (date) => {
 		const newDate = new Date(date);
 		return newDate.toDateString();
@@ -177,6 +178,10 @@ export default function ManageReservation({ reservation }) {
 						Delete
 					</button>
 				)}
+
+				<button className='chat-button status-selector-btn' onClick={onChat}>
+					Chat with guest
+				</button>
 			</div>
 		</li>
 	);

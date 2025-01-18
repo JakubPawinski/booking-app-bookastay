@@ -22,18 +22,19 @@ export default function ProfilePage() {
 
 	useEffect(() => {
 		const token = Cookies.get('token');
-		// console.log(token);
+		console.log(token);
 
 		const fetchData = async (id) => {
 			const response = await axios.get(`${ENDPOINTS.USERS}/id/${id}`, {
 				withCredentials: true,
 			});
-			// console.log(response.data);
+			console.log(response.data);
 			setProfileData(response.data);
 		};
 
 		if (token) {
 			const decodedData = jwtDecode(token);
+			console.log(decodedData);
 			fetchData(decodedData.id);
 		} else {
 			console.log('no token');
@@ -67,15 +68,14 @@ export default function ProfilePage() {
 				>
 					Manage your account
 				</ProfileInfoButton>
-				{profileData.role === 'user' ||
-					(profileData.role === 'owner' && (
-						<ProfileInfoButton
-							isSelected={selectedTab === 'reservations'}
-							onSelect={() => handleSelect('reservations')}
-						>
-							My bookings
-						</ProfileInfoButton>
-					))}
+				{(profileData.role === 'user' || profileData.role === 'owner') && (
+					<ProfileInfoButton
+						isSelected={selectedTab === 'reservations'}
+						onSelect={() => handleSelect('reservations')}
+					>
+						My bookings
+					</ProfileInfoButton>
+				)}
 				{profileData.role === 'owner' && (
 					<ProfileInfoButton
 						isSelected={selectedTab === 'manage-accomodations'}

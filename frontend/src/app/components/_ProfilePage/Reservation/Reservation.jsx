@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { ENDPOINTS } from '@/config';
 import axios from 'axios';
 import Link from 'next/link';
+import Chat from '@/app/components/Chat/Chat';
 
 export default function Reservation({ reservation }) {
 	const [accomodation, setAccomodation] = useState(null);
 	const [showMore, setShowMore] = useState(false);
+	const [isChatActive, setIsChatActive] = useState(false);
 
 	const formatDate = (date) => {
 		const newDate = new Date(date);
@@ -109,6 +111,19 @@ export default function Reservation({ reservation }) {
 								{' '}
 								Cancel reservation
 							</button>
+						)}
+
+						<button
+							className='chat-button '
+							onClick={() => setIsChatActive(true)}
+						>
+							Chat with host
+						</button>
+						{isChatActive && (
+							<Chat
+								onClose={() => setIsChatActive(false)}
+								reservationId={reservation._id}
+							/>
 						)}
 					</div>
 				)}

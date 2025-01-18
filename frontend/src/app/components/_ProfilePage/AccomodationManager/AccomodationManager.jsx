@@ -5,11 +5,14 @@ import AccommodationForm from '../AccomodationForm/AccomodationForm';
 import axios from 'axios';
 import { ENDPOINTS } from '@/config';
 import ManageReservation from '../ManageReservation/ManageReservation';
+import Chat from '../../Chat/Chat';
 
 export default function AccomodationManager({ accomodation }) {
 	const [accomodationData, setAccomodationData] = useState(accomodation);
 	const [isManaging, setIsManaging] = useState(false);
 	const [reservations, setReservations] = useState([]);
+	const [isChatActive, setIsChatActive] = useState(false);
+	const [chatReservationId, setChatReservationId] = useState(null);
 
 	useEffect(() => {
 		const fetchReservations = async () => {
@@ -88,7 +91,14 @@ export default function AccomodationManager({ accomodation }) {
 											(a, b) => new Date(a.startDate) - new Date(b.startDate)
 										)
 										.map((res) => (
-											<ManageReservation reservation={res} key={res._id} />
+											<ManageReservation
+												reservation={res}
+												key={res._id}
+												onChat={() => {
+													setChatReservationId(res._id);
+													setIsChatActive(true);
+												}}
+											/>
 										))}
 								</ul>
 							</div>
@@ -119,6 +129,12 @@ export default function AccomodationManager({ accomodation }) {
 					{isManaging ? 'Hide details' : 'Show details'}
 				</button>
 			</div>
+			{isChatActive && (
+				<Chat
+					onClose={() => setIsChatActive(false)}
+					reservationId={chatReservationId}
+				/>
+			)}
 		</li>
 	);
 }
