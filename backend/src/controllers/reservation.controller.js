@@ -1,4 +1,5 @@
 import Reservation from '../models/reservation.model.js';
+import { reservationNotification } from '../services/mqtt.js';
 
 const getReservations = async (req, res) => {
 	try {
@@ -60,6 +61,7 @@ const updateReservation = async (req, res) => {
 const addReservation = async (req, res) => {
 	try {
 		const reservation = await Reservation.create(req.body);
+		reservationNotification(reservation.houseId, reservation);
 		res.status(201).json(reservation);
 	} catch (error) {
 		res.status(404).json({ message: error.message });

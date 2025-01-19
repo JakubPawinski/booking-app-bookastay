@@ -1,5 +1,6 @@
 import './globals.scss';
 import Navigation from './components/Navigation/Navigation';
+import Notification from './components/Notification/Notification';
 
 export const metadata = {
 	title: 'Reservation App',
@@ -11,7 +12,10 @@ export default function RootLayout({ children }) {
 		<html lang='en'>
 			<body>
 				<Navigation />
-				<main>{children}</main>
+				<main>
+					{children}
+					<Notification />
+				</main>
 			</body>
 		</html>
 	);

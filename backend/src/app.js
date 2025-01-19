@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { Server as SocketServer } from 'socket.io';
 import { createServer } from 'http';
+import mqtt from 'mqtt';
 
 // import routes
 import userRoutes from './routes/user.route.js';
@@ -14,7 +15,7 @@ import messageRoutes from './routes/message.route.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { loggerMiddleware } from './middlewares/logger.middleware.js';
-
+import { initializeMqtt } from './services/mqtt.js';
 import { initializeSocket } from './services/socket.js';
 
 const app = express();
@@ -49,6 +50,9 @@ app.use('/api/messages', messageRoutes);
 
 //Socket io initialization
 initializeSocket(io);
+
+// MQTT initialization
+initializeMqtt();
 
 // Server setup
 mongoose
