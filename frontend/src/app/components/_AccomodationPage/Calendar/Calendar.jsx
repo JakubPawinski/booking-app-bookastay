@@ -18,7 +18,7 @@ export default function Calendar({ houseId, onChange }) {
 					`${ENDPOINTS.RESERVATIONS}/house/${houseId}`
 				);
 				setReservations(reservations.data);
-				console.log(reservations.data);
+				// console.log(reservations.data);
 			} catch (error) {
 				console.error(error);
 			}
@@ -56,7 +56,7 @@ export default function Calendar({ houseId, onChange }) {
 	}, [startDate, endDate]);
 
 	const handleDateClick = (date) => {
-		console.log('handleDateClick:', date);
+		// console.log('handleDateClick:', date);
 
 		if (date.setHours(0, 0, 0, 0) < currentDate.setHours(0, 0, 0, 0)) return;
 		if (isDateReserved(date)) return;

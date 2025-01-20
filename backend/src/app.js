@@ -17,6 +17,7 @@ import cors from 'cors';
 import { loggerMiddleware } from './middlewares/logger.middleware.js';
 import { initializeMqtt } from './services/mqtt.js';
 import { initializeSocket } from './services/socket.js';
+import { initializeSMTPClient } from './services/nodemailer.js';
 
 const app = express();
 const port = 4000;
@@ -53,6 +54,9 @@ initializeSocket(io);
 
 // MQTT initialization
 initializeMqtt();
+
+// Nodemailer initialization
+initializeSMTPClient();
 
 // Server setup
 mongoose
