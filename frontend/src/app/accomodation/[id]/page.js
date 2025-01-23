@@ -24,6 +24,7 @@ export default function AccomodationPage({ params }) {
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [lowSeasonPrice, setLowSeasonPrice] = useState(0);
 
+	//UseEffect for getting token
 	useEffect(() => {
 		const token = Cookies.get('token');
 
@@ -35,6 +36,7 @@ export default function AccomodationPage({ params }) {
 		// console.log(token);
 	}, []);
 
+	//UseEffect for fetching low season price
 	useEffect(() => {
 		const fetchLowSeasonPrice = async () => {
 			try {
@@ -49,6 +51,7 @@ export default function AccomodationPage({ params }) {
 		fetchLowSeasonPrice();
 	}, []);
 
+	//UseEffect for fetching total price
 	useEffect(() => {
 		const fetchPrice = async () => {
 			if (!selectedDates.startDate || !selectedDates.endDate) {
@@ -76,13 +79,16 @@ export default function AccomodationPage({ params }) {
 		fetchPrice();
 	}, [selectedDates]);
 
+	// UseEffect for fetching accomodation
 	useEffect(() => {
+		console.log('UseEffect for fetching accomodation');
+
 		try {
 			const fetchAccomodation = async () => {
 				const response = await axios.get(
 					`http://localhost:4000/api/houses/${params.id}`
 				);
-				// console.log(response.data);
+				console.log(response.data);
 
 				setAccomodation(response.data);
 			};

@@ -3,17 +3,62 @@ import { ENDPOINTS } from '@/config';
 import axios from 'axios';
 import Link from 'next/link';
 import Chat from '@/app/components/Chat/Chat';
+import mqtt from 'mqtt';
 
 export default function Reservation({ reservation }) {
 	const [accomodation, setAccomodation] = useState(null);
 	const [showMore, setShowMore] = useState(false);
 	const [isChatActive, setIsChatActive] = useState(false);
+	const [mqttClient, setMqttClient] = useState(null);
+	const [isConnected, setIsConnected] = useState(false);
+	const [reservationData, setReservationData] = useState(null);
 
 	const formatDate = (date) => {
 		const newDate = new Date(date);
 		return newDate.toDateString();
 	};
 
+	useEffect(() => {
+		setReservationData(reservation);
+	}, []);
+
+	//MQTT
+	useEffect(() => {
+		console.log('Reservation comopnent connecting to mqtt');
+		const client = mqtt.connect('ws://localhost:8000/mqtt');
+		setMqttClient(client);
+
+		client.on('connect', () => {
+			console.log('Connected to MQTT broker');
+			setIsConnected(true);
+		});
+
+		return () => {};
+	}, []);
+	// Subscribe to socket
+	useEffect(() => {
+		console.log('Subscribing to reservation status');
+		if (!isConnected || !mqttClient) return;
+		const topic = `reservations/status/${reservation._id}`;
+		mqttClient.subscribe(`${topic}`);
+		console.log('Subscribed to:', topic);
+
+		mqttClient.on('message', (topic, message) => {
+			if (topic === `reservations/status/${reservation._id}`) {
+				console.log('Received message on topic:', topic);
+				const receivedMessage = JSON.parse(message.toString());
+				setReservationData({
+					...reservationData,
+					status: receivedMessage.status,
+					isConfirmed: receivedMessage.isConfirmed,
+				});
+			}
+		});
+
+		return () => {};
+	}, [mqttClient, isConnected]);
+
+	//Fetch accomodation
 	useEffect(() => {
 		const fetchAccomodation = async () => {
 			try {
@@ -90,23 +135,23 @@ export default function Reservation({ reservation }) {
 						</div>
 						<div className='reservation-page-reservation-status info'>
 							<p>Status:</p>
-							{reservation.status === 'pending' ? (
+							{reservationData.status === 'pending' ? (
 								<p
 									className={
-										reservation.isConfirmed ? 'confirmed' : 'unconfirmed'
+										reservationData.isConfirmed ? 'confirmed' : 'unconfirmed'
 									}
 								>
-									{reservation.isConfirmed ? 'Confirmed' : 'Unconfirmed'}
+									{reservationData.isConfirmed ? 'Confirmed' : 'Unconfirmed'}
 								</p>
 							) : (
-								<p className='status'>{reservation.status}</p>
+								<p className='status'>{reservationData.status}</p>
 							)}
 						</div>
 
 						<button onClick={handleClick} className='click-button'>
 							Show less
 						</button>
-						{reservation.status !== 'cancelled' && (
+						{reservationData.status !== 'cancelled' && (
 							<button onClick={handleCancel} className='cancel-button'>
 								{' '}
 								Cancel reservation

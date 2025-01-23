@@ -66,5 +66,7 @@ export const initializeSocket = (io) => {
 		socket.on('disconnect', () => {
 			console.log('User disconnected', socket.id);
 		});
+
+	
 	});
 };

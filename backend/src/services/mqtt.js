@@ -50,3 +50,16 @@ export const sendReservationConfirmation = (reservation) => {
 	console.log('Message:', message);
 	client.publish(topic, JSON.stringify(message));
 };
+
+export const updateReservationStatus = (reservation) => {
+	const topic = `reservations/status/${reservation._id}`;
+	const message = {
+		type: 'update_status',
+		data: `Reservation status updated!`,
+		status: reservation.status,
+		isConfirmed: reservation.isConfirmed,
+	};
+	console.log('Publishing to topic:', topic);
+	console.log('Message:', message);
+	client.publish(topic, JSON.stringify(message));
+};

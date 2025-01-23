@@ -3,6 +3,7 @@ import {
 	reservationNotification,
 	reservationStatusNotification,
 	sendReservationConfirmation,
+	updateReservationStatus,
 } from '../services/mqtt.js';
 
 const getReservations = async (req, res) => {
@@ -56,6 +57,7 @@ const updateReservation = async (req, res) => {
 		}
 
 		const updatedReservation = await Reservation.findById(id);
+		updateReservationStatus(updatedReservation);
 		reservationStatusNotification(updatedReservation);
 		res.status(200).json(updatedReservation);
 	} catch (error) {
