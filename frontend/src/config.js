@@ -6,6 +6,7 @@ const ENDPOINTS = {
 	AUTH: `${API_BASE_URL}/auth`,
 	RESERVATIONS: `${API_BASE_URL}/reservations`,
 	MESSAGES: `${API_BASE_URL}/messages`,
+	REVIEWS: `${API_BASE_URL}/reviews`,
 };
 
 export { API_BASE_URL, ENDPOINTS };

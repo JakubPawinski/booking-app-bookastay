@@ -1,0 +1,39 @@
+.reviews-component-review {
+	padding: 15px;
+	border: 1px solid lightgray;
+	border-radius: 10px;
+	transition: transform 0.2s;
+	animation: fadeIn 0.5s ease-out forwards;
+
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+	}
+
+	div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10px;
+
+		> p:first-child {
+			font-weight: bold;
+			color: #333;
+			display: flex;
+			gap: 5px;
+			margin: 0;
+		}
+
+		> p:last-child {
+			color: #fc4545;
+			font-weight: 500;
+			margin: 0;
+		}
+	}
+
+	> p {
+		color: #595959;
+		// line-height: 1.4;
+		margin: 0;
+	}
+}

@@ -95,11 +95,11 @@ export default function Notification() {
 
 	useEffect(() => {
 		if (!isConnected || !mqttClient) return;
-		// console.log('Topics updated:', topics);
+		console.log('Topics updated:', topics);
 		mqttClient.on('message', (topic, message) => {
 			if (topics.includes(topic)) {
 				console.log('Received message on topic:', topic);
-				// console.log('Message:', message.toString());
+				console.log('Message:', message.toString());
 				const parsedMSG = JSON.parse(message.toString());
 				setMessage(parsedMSG.data);
 			}

@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from '@/app/components/Loading/Loading.jsx';
 import Calendar from '@/app/components/_AccomodationPage/Calendar/Calendar';
+import Reviews from '@/app/components/_AccomodationPage/Reviews/Reviews';
 import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { ENDPOINTS } from '@/config';
 import { useRouter } from 'next/navigation';
+import io from 'socket.io-client';
 
 export default function AccomodationPage({ params }) {
 	const router = useRouter();
@@ -229,6 +231,7 @@ export default function AccomodationPage({ params }) {
 					</div>
 				</div>
 			</div>
+			<Reviews accomodation={accomodation} userId={userId} />
 		</div>
 	);
 }

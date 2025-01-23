@@ -10,6 +10,7 @@ import authRoutes from './routes/auth.route.js';
 import houseRoutes from './routes/house.route.js';
 import reservationRoutes from './routes/reservation.route.js';
 import messageRoutes from './routes/message.route.js';
+import reviewRoutes from './routes/review.route.js';
 
 // import middlewares
 import cookieParser from 'cookie-parser';
@@ -48,6 +49,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/houses', houseRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 //Socket io initialization
 initializeSocket(io);
