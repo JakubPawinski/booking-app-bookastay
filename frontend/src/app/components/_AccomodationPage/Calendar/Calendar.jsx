@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ENDPOINTS } from '@/config';
 import { get } from 'lodash';
+import { io } from 'socket.io-client';
 
 export default function Calendar({ houseId, onChange }) {
 	const [startDate, setStartDate] = useState(new Date());
@@ -11,6 +12,24 @@ export default function Calendar({ houseId, onChange }) {
 	const [reservations, setReservations] = useState([]);
 	const currentDate = new Date();
 
+	// Socket for updating reservations
+	useEffect(() => {
+		const socket = io('http://localhost:4000');
+		socket.on('connect', () => {
+			console.log('Connected to server calendar');
+
+			socket.emit('joinHouseRoom', houseId);
+		});
+
+		socket.on('receiveReservation', (data) => {
+			console.log('New reservation:', data);
+			setReservations((prev) => [...prev, data]);
+		});
+		return () => {
+			socket.disconnect();
+		};
+	}, []);
+	// UseEffect to fetch reservations
 	useEffect(() => {
 		const fetchReservations = async () => {
 			try {
@@ -26,6 +45,7 @@ export default function Calendar({ houseId, onChange }) {
 		fetchReservations();
 	}, []);
 
+	// Check if date is reserved
 	const isDateReserved = (date) => {
 		return reservations.some((reservation) => {
 			const start = new Date(reservation.startDate);
@@ -34,6 +54,7 @@ export default function Calendar({ houseId, onChange }) {
 		});
 	};
 
+	// Months object
 	const months = {
 		0: 'January',
 		1: 'February',
@@ -49,12 +70,14 @@ export default function Calendar({ houseId, onChange }) {
 		11: 'December',
 	};
 
+	// UseEffect to update parent component
 	useEffect(() => {
 		// console.log('startDate:', startDate);
 		// console.log('endDate:', endDate);
 		onChange({ startDate: startDate, endDate: endDate });
 	}, [startDate, endDate]);
 
+	// Handle date click
 	const handleDateClick = (date) => {
 		// console.log('handleDateClick:', date);
 

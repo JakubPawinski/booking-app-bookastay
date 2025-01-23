@@ -67,6 +67,18 @@ export const initializeSocket = (io) => {
 			console.log('User disconnected', socket.id);
 		});
 
-	
+		// Reservations on calendar
+		socket.on('sendNewReservation', async (data) => {
+			try {
+				const { houseId, startDate, endDate } = data;
+				console.log('New reservation:', data);
+				io.to(houseId).emit('receiveReservation', {
+					startDate,
+					endDate,
+				});
+			} catch (error) {
+				console.error('Error with sending reservation', error);
+			}
+		});
 	});
 };

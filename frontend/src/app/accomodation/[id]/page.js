@@ -9,7 +9,8 @@ import { jwtDecode } from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { ENDPOINTS } from '@/config';
 import { useRouter } from 'next/navigation';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
+// import { Socket } from 'socket.io';
 
 export default function AccomodationPage({ params }) {
 	const router = useRouter();
@@ -98,6 +99,25 @@ export default function AccomodationPage({ params }) {
 		}
 	}, []);
 
+	// Socket for updating reservations
+	const socket = io('http://localhost:4000');
+	useEffect(() => {
+		if (!accomodation) return;
+		socket.on('connect', () => {
+			console.log('Connected to server');
+
+			socket.emit('joinHouseRoom', accomodation._id);
+		});
+
+		socket.on('error', (error) => {
+			console.error('Socket error:', error);
+		});
+
+		return () => {
+			socket.disconnect();
+		};
+	}, [accomodation]);
+
 	const formatDate = (date) => {
 		if (!date) return null;
 
@@ -143,6 +163,12 @@ export default function AccomodationPage({ params }) {
 				});
 			setRefreshKey(refreshKey + 1);
 			setSelectedDates({ startDate: null, endDate: null });
+
+			socket.emit('sendNewReservation', {
+				houseId: accomodation._id,
+				startDate: reservationData.startDate,
+				endDate: reservationData.endDate,
+			});
 		} catch (error) {
 			console.error(error);
 		}
