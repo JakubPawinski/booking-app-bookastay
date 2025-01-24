@@ -109,6 +109,19 @@ const getHousesByOwnerId = async (req, res) => {
 	}
 };
 
+const getHousesBySearch = async (req, res) => {
+	console.log('Search houses');
+	const { name } = req.body;
+	try {
+		const houses = await House.find({
+			name: { $regex: name, $options: 'i' },
+		});
+		res.status(200).json(houses);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
 export {
 	getHouses,
 	getHouseById,
@@ -117,4 +130,5 @@ export {
 	deleteHouse,
 	calculatePrice,
 	getHousesByOwnerId,
+	getHousesBySearch,
 };

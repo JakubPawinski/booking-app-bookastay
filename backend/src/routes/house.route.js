@@ -7,6 +7,7 @@ import {
 	deleteHouse,
 	calculatePrice,
 	getHousesByOwnerId,
+	getHousesBySearch,
 } from '../controllers/house.controller.js';
 
 import { ownerVerification } from '../middlewares/userVerification.middleware.js';
@@ -26,5 +27,7 @@ router.delete('/:id', ownerVerification, deleteHouse);
 router.post('/price/:houseId', calculatePrice);
 
 router.get('/owner/:ownerId', ownerVerification, getHousesByOwnerId);
+
+router.post('/search', getHousesBySearch);
 
 export default router;

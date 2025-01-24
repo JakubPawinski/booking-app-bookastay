@@ -1,0 +1,36 @@
+.search-bar {
+	display: flex;
+	gap: 1rem;
+	max-width: 600px;
+	margin: 2rem auto;
+	padding: 0 1rem;
+
+	&__input {
+		flex: 1;
+		padding: 8px;
+		border: 1px solid lightgray;
+		border-radius: 5px;
+		font-size: 1rem;
+		transition: border-color 0.3s ease;
+
+		&:focus {
+			outline: none;
+			border-color: #fc4545;
+		}
+	}
+
+	&__button {
+		padding: 8px 16px;
+		background-color: #fc4545;
+		color: white;
+		border: none;
+		border-radius: 5px;
+		font-size: 1rem;
+		cursor: pointer;
+		transition: background-color 0.2s;
+
+		&:hover {
+			background-color: darken(#fc4545, 10%);
+		}
+	}
+}
