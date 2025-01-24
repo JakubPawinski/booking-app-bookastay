@@ -39,6 +39,11 @@
 		grid-template-columns: repeat(3, 1fr);
 		gap: 20px;
 	}
+	.availability-inputs {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+	}
 
 	.error {
 		color: #fc4545;

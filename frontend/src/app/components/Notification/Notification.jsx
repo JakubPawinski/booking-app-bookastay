@@ -78,6 +78,7 @@ export default function Notification() {
 		// Subscribe to accomodations
 		accomodations.forEach((accomodation) => {
 			const topic = `reservations/new/${accomodation._id}`;
+			console.log('Subscribing to topic:', topic);
 			mqttClient.subscribe(`${topic}`);
 			newTopics.push(topic);
 		});
@@ -85,6 +86,7 @@ export default function Notification() {
 		// Subscribe to reservations
 		reservations.forEach((reservation) => {
 			const topic = `reservations/user/${reservation._id}`;
+			console.log('Subscribing to topic:', topic);
 			mqttClient.subscribe(`${topic}`);
 			newTopics.push(topic);
 		});

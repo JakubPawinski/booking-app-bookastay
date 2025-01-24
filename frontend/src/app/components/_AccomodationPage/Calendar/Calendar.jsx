@@ -5,7 +5,7 @@ import { ENDPOINTS } from '@/config';
 import { get } from 'lodash';
 import { io } from 'socket.io-client';
 
-export default function Calendar({ houseId, onChange }) {
+export default function Calendar({ houseId, onChange, availability }) {
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(null);
 	const [selectedMonth, setSelectedMonth] = useState(new Date());
@@ -53,6 +53,11 @@ export default function Calendar({ houseId, onChange }) {
 			return date >= start && date <= end && reservation.status !== 'cancelled';
 		});
 	};
+	const isDateAvailable = (date) => {
+		const start = new Date(availability.startDate);
+		const end = new Date(availability.endDate);
+		return date >= start && date <= end;
+	};
 
 	// Months object
 	const months = {
@@ -83,6 +88,7 @@ export default function Calendar({ houseId, onChange }) {
 
 		if (date.setHours(0, 0, 0, 0) < currentDate.setHours(0, 0, 0, 0)) return;
 		if (isDateReserved(date)) return;
+		if (!isDateAvailable(date)) return;
 		if (!startDate) {
 			setStartDate(date);
 			setEndDate(null);
@@ -147,6 +153,8 @@ export default function Calendar({ houseId, onChange }) {
 				selectedDate > startDate &&
 				selectedDate < endDate;
 
+			const isAvailable = availability.startDate || availability.endDate;
+
 			return (
 				<td
 					key={`day-${i + 1}`}
@@ -161,7 +169,8 @@ export default function Calendar({ houseId, onChange }) {
 								? 'disabled-date'
 								: ''
 						}
-						${isDateReserved(selectedDate) ? 'reserved-date' : ''}`}
+						${isDateReserved(selectedDate) ? 'reserved-date' : ''}
+						${!isDateAvailable(selectedDate) ? 'disabled-date' : ''}`}
 					onClick={() => handleDateClick(selectedDate)}
 				>
 					{i + 1}

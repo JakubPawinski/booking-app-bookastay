@@ -210,6 +210,7 @@ export default function AccomodationPage({ params }) {
 							houseId={accomodation._id}
 							onChange={setSelectedDates}
 							value={selectedDates}
+							availability={accomodation.availability}
 						/>
 					</div>
 				</div>

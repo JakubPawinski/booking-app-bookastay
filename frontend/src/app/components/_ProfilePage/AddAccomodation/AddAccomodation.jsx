@@ -66,6 +66,7 @@ export default function AddAccomodation() {
 			const response = await axios.post(ENDPOINTS.HOUSES, formData, {
 				withCredentials: true,
 			});
+			alert('Accomodation added successfully');
 			console.log(response);
 		} catch (error) {
 			console.error(error);

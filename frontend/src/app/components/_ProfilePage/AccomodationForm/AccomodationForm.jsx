@@ -25,13 +25,33 @@ const validationSchema = Yup.object().shape({
 		city: Yup.string().required('City is required'),
 		country: Yup.string().required('Country is required'),
 	}),
+	availability: Yup.object().shape({
+		startDate: Yup.date().required('Start date is required'),
+		endDate: Yup.date().required('End date is required'),
+	}),
 });
 
 export default function AccommodationForm({ initialValues, onSubmit }) {
+	console.log('initialValues:', initialValues);
+	const formattedInitialValues = {
+		...initialValues,
+		availability: {
+			startDate: initialValues.availability?.startDate
+				? new Date(initialValues.availability.startDate)
+						.toISOString()
+						.split('T')[0]
+				: '',
+			endDate: initialValues.availability?.endDate
+				? new Date(initialValues.availability.endDate)
+						.toISOString()
+						.split('T')[0]
+				: '',
+		},
+	};
 	return (
 		<div className='accommodation-form'>
 			<Formik
-				initialValues={initialValues}
+				initialValues={formattedInitialValues}
 				validationSchema={validationSchema}
 				onSubmit={onSubmit}
 			>
@@ -84,6 +104,26 @@ export default function AccommodationForm({ initialValues, onSubmit }) {
 								<Field name='pricePerNight.high' type='number' />
 								<ErrorMessage
 									name='pricePerNight.high'
+									component='div'
+									className='error'
+								/>
+							</div>
+						</div>
+						<div className='availability-inputs'>
+							<div>
+								<label htmlFor='availability.startDate'>Start Date</label>
+								<Field name='availability.startDate' type='date' />
+								<ErrorMessage
+									name='availability.startDate'
+									component='div'
+									className='error'
+								/>
+							</div>
+							<div>
+								<label htmlFor='availability.endDate'>End Date</label>
+								<Field name='availability.endDate' type='date' />
+								<ErrorMessage
+									name='availability.endDate'
 									component='div'
 									className='error'
 								/>
