@@ -1,65 +1,90 @@
-# System rezerwacji pobytu
+# Accommodation Booking System
 
-## Opis
+## Project Overview
 
-Projekt na PSW, który umożliwia rezerwację pobytu w domkach letniskowych. System obsługuje zarówno gości, jak i właścicieli domków, oferując różne funkcjonalności dla obu grup użytkowników. Projekt wykorzystuje protokoły WebSocket i MQTT do komunikacji w czasie rzeczywistym.
+This project, developed as part of the Web Protocols course, is a comprehensive platform for booking holiday cottages. It provides tailored functionalities for both guests and cottage owners, leveraging modern web technologies and real-time communication protocols to deliver a seamless user experience.
 
-## Funkcjonalności
+## Key Features
 
-### Dla gości (użytkowników):
+### For Guests:
 
-- Rejestracja i logowanie.
-- Rezerwacja z wyświetleniem ceny za pobyt.
-- Podgląd aktualnych rezerwacji.
-- Czat z właścicielem domku.
-- Anulowanie rezerwacji.
-- Powiadomienia o statusie rezerwacji.
+- **User Registration and Login**: Secure account creation and authentication.
+- **Booking Management**: Effortless booking with automated price calculation.
+- **Reservation Overview**: Access to current and past reservations.
+- **Real-Time Communication**: Chat directly with cottage owners.
+- **Reservation Cancellation**: Easy cancellation of bookings.
+- **Notifications**: Stay informed about reservation status updates.
 
-### Dla właścicieli:
+### For Cottage Owners:
 
-- Logowanie i dostęp do panelu zarządzania.
-- Podgląd rezerwacji z możliwością ich zatwierdzenia.
-- Ustawianie cen w danym sezonie (niski/średni/wysoki sezon).
-- Czat z klientami.
-- Powiadomienia o nowych rezerwacjach.
+- **Management Panel**: Centralized dashboard for managing reservations.
+- **Reservation Approval**: Review and approve guest bookings.
+- **Seasonal Pricing**: Configure pricing for low, medium, and high seasons.
+- **Real-Time Chat**: Communicate instantly with guests.
+- **Notifications**: Alerts for new reservations and updates.
 
-### WebSocket:
+## Screenshots
 
-- Czat pomiędzy wynajmującym, a właścicielem
-- Odświeżanie opinii o zakwaterowaniu w czasie rzeczywistym
-- Odświeżanie kalendarza z zajętymi terminami w czasie rzeczywistym
+### Home Page
 
-### MQTT:
+![Home Page](./screenshots/homePage.png)
 
-- Powiadomienia o zmianie statusu rezerwacji
-- Powiadomienia dla właściciela o nowej rezerwacji
-- Przesyłanie informacji o nowej rezerwacji do innej części aplikacji w celu wysłanie maila z potwierdzeniem
+![Accomodation Page](./screenshots/AccomodationPage.png)
 
-### SMTP:
+![Calendar view](./screenshots/CalendarView.png)
 
-- Wysyłanie maila z potwierdzeniem rezerwacji na adres mailowy podany przy rejestracji konta
+### Guest Dashboard
 
-## Użyte technologie
+![Guest Dashboard - profile settings](./screenshots/guestDashboard_profileSettings.png)
+
+![Guest Dashboard - my bookings](./screenshots/guestDashboard_myBookings.png)
+
+![Guest Dashboard - chat](./screenshots/guestDashboard_chat.png)
+
+### Owner Managment Panel
+
+![Owner Dashboard - accomodation manager](./screenshots/ownerDashboard_accomodationManager.png)
+
+![Owner Dashboard - reservation manager](./screenshots/ownerDashboard_reservationManager.png)
+
+![Owner Dashboard - chat](./screenshots/ownerDashboard_chat.png)
+
+### WebSocket Integration:
+
+- **Real-Time Chat**: Instant messaging between guests and owners.
+- **Live Updates**: Dynamic updates for accommodation reviews and booking calendars.
+
+### MQTT Integration:
+
+- **Reservation Notifications**: Real-time updates on reservation status changes.
+- **Owner Alerts**: Immediate notifications for new bookings.
+- **Data Forwarding**: Seamless integration with other components for email confirmations and status updates.
+
+### SMTP Integration:
+
+- **Email Notifications**: Automated reservation confirmation emails sent to registered users.
+
+## Technology Stack
 
 ### Frontend:
 
-- React
-- Next.js
-- Axios
-- Socket.io-client
-- MQTT.js
-- SCSS
+- **React**: Component-based UI development.
+- **Next.js**: Server-side rendering and routing.
+- **Axios**: Simplified HTTP request handling.
+- **Socket.io-client**: WebSocket communication for real-time features.
+- **MQTT.js**: MQTT protocol integration.
+- **SCSS**: Advanced styling with modularity.
 
 ### Backend:
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- Socket.io
-- MQTT
-- Nodemailer
+- **Node.js**: High-performance server-side runtime.
+- **Express.js**: REST API development framework.
+- **MongoDB**: NoSQL database for scalable data storage.
+- **Mongoose**: Object Data Modeling (ODM) for MongoDB.
+- **Socket.io**: WebSocket server for real-time communication.
+- **MQTT**: Lightweight messaging protocol for IoT, using the **HiveMQ** broker for reliable message delivery.
+- **Nodemailer**: Email service for automated notifications.
 
-## Autor
+## Author
 
-Jakub Pawiński 292628
+**Jakub Pawiński**
